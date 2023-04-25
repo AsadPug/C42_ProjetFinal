@@ -87,6 +87,7 @@ CREATE TABLE troncon(
 	longueur				DECIMAL(7, 1) 				NOT NULL,
 	limite_vitesse				INTEGER					NOT NULL,
 	nbVoies					INTEGER					NOT NULL DEFAULT 1,
+	pavage					pavage					NOT NULL,
 	
 	CONSTRAINT pk_troncon_id PRIMARY KEY(id),
 	CONSTRAINT cc_troncon_longueur CHECK(longueur BETWEEN 0.0 AND 100000.0),
