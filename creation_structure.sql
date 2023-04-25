@@ -8,21 +8,21 @@ CREATE TYPE pavage AS ENUM('asphalte', 'ciment', 'pavé brique', 'pavé pierre',
 
 CREATE TABLE inspection(
 	id					SERIAL,
-	date_debut 			DATE		NOT NULL,
-	date_fin			DATE		NOT NULL,
-	veh_insp			INTEGER		NOT NULL,
-	prof_laser_insp		INTEGER		NOT NULL,
-	chemin_fichier 		VARCHAR(1024)NOT NULL,
+	date_debut 				DATE		NOT NULL,
+	date_fin				DATE		NOT NULL,
+	veh_insp				INTEGER		NOT NULL,
+	prof_laser_insp				INTEGER		NOT NULL,
+	chemin_fichier 				VARCHAR(1024)	NOT NULL,
 	
 	CONSTRAINT pk_ins PRIMARY KEY(id)
 );
 
 CREATE TABLE vehicule_inspection(
 	id 					SERIAL,
-	employe				INTEGER 	NOT NULL,
-	vehicule			INTEGER		NOT NULL,
-	kilo_debut			NUMERIC(8,2)NOT NULL,
-	kilo_fin			NUMERIC(8,2)NOT NULL,
+	employe					INTEGER 	NOT NULL,
+	vehicule				INTEGER		NOT NULL,
+	kilo_debut				NUMERIC(8,2)	NOT NULL,
+	kilo_fin				NUMERIC(8,2)	NOT NULL,
 	
 	CONSTRAINT pk_veh_ins PRIMARY KEY(id),
 	CONSTRAINT cc_veh_ins_kilo_d CHECK(
@@ -35,30 +35,30 @@ CREATE TABLE vehicule_inspection(
 
 CREATE TABLE profileur_laser_inspection(
 	id 					SERIAL,
-	profileur			INTEGER 	NOT NULL,
-	employe				INTEGER 	NOT NULL,
+	profileur				INTEGER 	NOT NULL,
+	employe					INTEGER 	NOT NULL,
 	
 	CONSTRAINT pk_pro_ins PRIMARY KEY(id)
 );
 
 CREATE TABLE troncon_inspection(
 	id					SERIAL,
-	troncon				INTEGER		NOT NULL,
-	inspection 			INTEGER 	NOT NULL,
+	troncon					INTEGER		NOT NULL,
+	inspection 				INTEGER 	NOT NULL,
 	
 	CONSTRAINT pk_tro_ins PRIMARY KEY(id)
 );
 
 CREATE TABLE employe(
 	id					SERIAL,
-	nas					CHAR(9) 				NOT NULL,
-	nom					VARCHAR(32)				NOT NULL,
-	prenom					VARCHAR(32)				NOT NULL,
-	genre					genre					NOT NULL,
-	date_embauche				DATE					NOT NULL,
-	salaire					DECIMAL(5, 2) 				NOT NULL DEFAULT 27.50,
-	poste					VARCHAR(32)				NOT NULL,
-	departement				VARCHAR(32)				NOT NULL,
+	nas					CHAR(9) 	NOT NULL,
+	nom					VARCHAR(32)	NOT NULL,
+	prenom					VARCHAR(32)	NOT NULL,
+	genre					genre		NOT NULL,
+	date_embauche				DATE		NOT NULL,
+	salaire					DECIMAL(5, 2) 	NOT NULL DEFAULT 27.50,
+	poste					VARCHAR(32)	NOT NULL,
+	departement				VARCHAR(32)	NOT NULL,
 	
 	CONSTRAINT pk_employe_id PRIMARY KEY(id),
 	CONSTRAINT cc_employe_date_embauche CHECK(date_embauche BETWEEN '2018-01-01' AND CURRENT_DATE),
@@ -67,27 +67,27 @@ CREATE TABLE employe(
 
 CREATE TABLE poste(
 	id					SERIAL,
-	nom					VARCHAR(32) 				NOT NULL,
+	nom					VARCHAR(32) 	NOT NULL,
 	
 	CONSTRAINT pk_poste_id PRIMARY KEY(id)
 );
 
 CREATE TABLE departement(
 	id					SERIAL,
-	nom					VARCHAR(32) 				NOT NULL,
+	nom					VARCHAR(32) 	NOT NULL,
 	
 	CONSTRAINT pk_departement_id PRIMARY KEY(id)
 );
 
 CREATE TABLE troncon(
 	id					SERIAL,
-	nom					VARCHAR(32)				NOT NULL,
-	intersection_debut			INTEGER					NOT NULL,
-	intersection_fin			INTEGER					NOT NULL,
-	longueur				DECIMAL(7, 1) 				NOT NULL,
-	limite_vitesse				INTEGER					NOT NULL,
-	nbVoies					INTEGER					NOT NULL DEFAULT 1,
-	pavage					pavage					NOT NULL,
+	nom					VARCHAR(32)	NOT NULL,
+	intersection_debut			INTEGER		NOT NULL,
+	intersection_fin			INTEGER		NOT NULL,
+	longueur				DECIMAL(7, 1)	NOT NULL,
+	limite_vitesse				INTEGER		NOT NULL,
+	nbVoies					INTEGER		NOT NULL DEFAULT 1,
+	pavage					pavage		NOT NULL,
 	
 	CONSTRAINT pk_troncon_id PRIMARY KEY(id),
 	CONSTRAINT cc_troncon_longueur CHECK(longueur BETWEEN 0.0 AND 100000.0),
@@ -97,42 +97,42 @@ CREATE TABLE troncon(
 
 CREATE TABLE intersection(
 	id					SERIAL,
-	identifiant				INTEGER					NOT NULL,
-	coordonees				POINT 					NOT NULL,
-	pavage					pavage					NOT NULL,
+	identifiant				INTEGER		NOT NULL,
+	coordonees				POINT 		NOT NULL,
+	pavage					pavage		NOT NULL,
 	
 	CONSTRAINT pk_intersection_id PRIMARY KEY(id),
 	CONSTRAINT cc_intersection_identifiant CHECK (identifiant BETWEEN 1000000 AND 9999999)
 );
 
 CREATE TABLE vehicule(
-	id SERIAL,
-	marque VARCHAR(32) NOT NULL,
-	modele VARCHAR(32) NOT NULL,
-	date_acquisition DATE,
-	immatriculation CHAR(6) NOT NULL,
+	id 					SERIAL,
+	marque 					VARCHAR(32)	NOT NULL,
+	modele 					VARCHAR(32) 	NOT NULL,
+	date_acquisition 			DATE,
+	immatriculation 			CHAR(6) 	NOT NULL,
 	
 	CONSTRAINT pk_vehicule PRIMARY KEY(id)
 );
 
 CREATE TABLE profileur_laser(
-	id SERIAL,
-	marque VARCHAR(32) NOT NULL,
-	no_serie CHAR(16) NOT NULL,
-	date_fabrication DATE,
-	date_acquisition DATE,
+	id 					SERIAL,
+	marque 					VARCHAR(32) 	NOT NULL,
+	no_serie 				CHAR(16) 	NOT NULL,
+	date_fabrication 			DATE,
+	date_acquisition 			DATE,
 	
 	CONSTRAINT pk_profileur_laser PRIMARY KEY(id)
 );
 
 CREATE TABLE calibration (
-	id SERIAL,
-	date_debut DATE NOT NULL, 
-	date_fin DATE NOT NULL,
-	employe_id INTEGER NOT NULL,
-	v1 NUMERIC(8, 4) NOT NULL,
-	v2 NUMERIC(8, 4) NOT NULL,
-	v3 NUMERIC(8, 4) NOT NULL,
+	id 					SERIAL,
+	date_debut 				DATE 		NOT NULL, 
+	date_fin 				DATE 		NOT NULL,
+	employe_id 				INTEGER 	NOT NULL,
+	v1 					NUMERIC(8, 4) 	NOT NULL,
+	v2 					NUMERIC(8, 4) 	NOT NULL,
+	v3 					NUMERIC(8, 4) 	NOT NULL,
 	
 	CONSTRAINT pk_calibration PRIMARY KEY(id),
 	CONSTRAINT cc_calibration_kilo_v CHECK(
@@ -144,8 +144,8 @@ CREATE TABLE calibration (
 
 CREATE TABLE profileur_laser_calibration(
 	id SERIAL,
-	id_calibaration INTEGER NOT NULL,
-	id_profileur INTEGER NOT NULL,
+	id_calibaration 			INTEGER		NOT NULL,
+	id_profileur 				INTEGER 	NOT NULL,
 	
 	CONSTRAINT pk_profileur_laser_calibration PRIMARY KEY(id)
 );
