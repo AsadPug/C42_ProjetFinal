@@ -21,8 +21,8 @@ CREATE TABLE vehicule_inspection(
 	id 					SERIAL,
 	employe				INTEGER 	NOT NULL,
 	vehicule			INTEGER		NOT NULL,
-	kilo_debut			INTEGER		NOT NULL,
-	kilo_fin			INTEGER		NOT NULL,
+	kilo_debut			NUMERIC(8,2)NOT NULL,
+	kilo_fin			NUMERIC(8,2)NOT NULL,
 	
 	CONSTRAINT pk_veh_ins PRIMARY KEY(id),
 	CONSTRAINT cc_veh_ins_kilo_d CHECK(
