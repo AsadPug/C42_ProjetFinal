@@ -1,0 +1,66 @@
+DROP TABLE IF EXISTS employe;
+DROP TABLE IF EXISTS poste;
+DROP TABLE IF EXISTS departement;
+DROP TABLE IF EXISTS troncon;
+DROP TABLE IF EXISTS intersection;
+
+DROP TYPE IF EXISTS genre;
+DROP TYPE IF EXISTS pavage;
+
+CREATE TYPE genre AS ENUM('f', 'h', 'x');
+CREATE TYPE pavage AS ENUM('asphalte', 'ciment', 'pavé brique', 'pavé pierre', 'non pavé', 'indéterminé');
+
+CREATE TABLE employe(
+	id					SERIAL,
+	nas					CHAR(9) 				NOT NULL,
+	nom					VARCHAR(32)				NOT NULL,
+	prenom				VARCHAR(32)				NOT NULL,
+	genre				genre					NOT NULL,
+	date_embauche		DATE					NOT NULL,
+	salaire				DECIMAL(5, 2) 			NOT NULL DEFAULT 27.50,
+	poste				VARCHAR(32)				NOT NULL,
+	departement			VARCHAR(32)				NOT NULL,
+	
+	CONSTRAINT pk_employe_id PRIMARY KEY(id),
+	CONSTRAINT cc_employe_date_embauche CHECK(date_embauche BETWEEN '2018-01-01' AND CURRENT_DATE),
+	CONSTRAINT cc_employe_salaire CHECK(salaire BETWEEN 15.00 AND 250.00)
+);
+
+CREATE TABLE poste(
+	id					SERIAL,
+	nom					VARCHAR(32) 			NOT NULL,
+	
+	CONSTRAINT pk_poste_id PRIMARY KEY(id)
+);
+
+CREATE TABLE departement(
+	id					SERIAL,
+	nom					VARCHAR(32) 			NOT NULL,
+	
+	CONSTRAINT pk_departement_id PRIMARY KEY(id)
+);
+
+CREATE TABLE troncon(
+	id						SERIAL,
+	nom						VARCHAR(32)				NOT NULL,
+	intersection_debut		INTEGER					NOT NULL,
+	intersection_fin		INTEGER					NOT NULL,
+	longueur				DECIMAL(7, 1) 			NOT NULL,
+	limite_vitesse			INTEGER					NOT NULL,
+	nbVoies					INTEGER					NOT NULL DEFAULT 1,
+	
+	CONSTRAINT pk_troncon_id PRIMARY KEY(id),
+	CONSTRAINT cc_troncon_longueur CHECK(longueur BETWEEN 0.0 AND 100000.0),
+	CONSTRAINT cc_troncon_limite_vitesse CHECK(limite_vitesse BETWEEN 25 AND 120),
+	CONSTRAINT cc_troncon_nbVoies CHECK(nbVoies BETWEEN 1 AND 8)
+);
+
+CREATE TABLE intersection(
+	id					SERIAL,
+	identifiant			INTEGER						NOT NULL,
+	coordonees			POINT 						NOT NULL,
+	pavage				pavage						NOT NULL,
+	
+	CONSTRAINT pk_intersection_id PRIMARY KEY(id),
+	CONSTRAINT cc_intersection_identifiant CHECK (identifiant BETWEEN 1000000 AND 9999999)
+);
