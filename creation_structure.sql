@@ -182,7 +182,10 @@ ALTER TABLE profileur_laser_calibration
 --Kerian
 ALTER TABLE calibration
 	ADD CONSTRAINT fk_calibration_employe FOREIGN KEY (employe) REFERENCES employe(id);
-
+--Kerian
+DROP INDEX IF EXISTS cherche_noserie;
+CREATE INDEX cherche_noserie
+	ON calibration(no_serie);
 
 
 
