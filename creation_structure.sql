@@ -1,5 +1,10 @@
 ALTER TABLE IF EXISTS employe DROP CONSTRAINT IF EXISTS fk_employe_poste;
 ALTER TABLE IF EXISTS employe DROP CONSTRAINT IF EXISTS fk_employe_departement;
+ALTER TABLE IF EXISTS profileur_laser_calibration DROP CONSTRAINT IF EXISTS fk_profileur_laser_calibration_calibration;
+ALTER TABLE IF EXISTS profileur_laser_calibration DROP CONSTRAINT IF EXISTS fk_profileur_laser_calibration_profileur_laser;
+ALTER TABLE IF EXISTS calibration DROP CONSTRAINT IF EXISTS fk_calibration_employe;
+
+
 
 DROP TABLE IF EXISTS vehicule, calibration, profileur_laser, profileur_laser_calibration, employe, poste, departement, troncon, intersection, inspection, vehicule_inspection, profileur_laser_inspection, troncon_inspection; 
 
@@ -139,7 +144,7 @@ CREATE TABLE calibration (
 	id 					SERIAL,
 	date_debut 				TIMESTAMP 		NOT NULL, 
 	date_fin 				TIMESTAMP 		NOT NULL,
-	employe_id 				INTEGER 	NOT NULL,
+	employe 				INTEGER 	NOT NULL,
 	v1 					NUMERIC(8, 4) 	NOT NULL,
 	v2 					NUMERIC(8, 4) 	NOT NULL,
 	v3 					NUMERIC(8, 4) 	NOT NULL,
@@ -155,8 +160,8 @@ CREATE TABLE calibration (
 --Kerian
 CREATE TABLE profileur_laser_calibration(
 	id SERIAL,
-	id_calibaration 			INTEGER		NOT NULL,
-	id_profileur 				INTEGER 	NOT NULL,
+	calibaration 			INTEGER		NOT NULL,
+	profileur 			INTEGER 	NOT NULL,
 	
 	CONSTRAINT pk_profileur_laser_calibration PRIMARY KEY(id)
 );
@@ -166,3 +171,20 @@ ALTER TABLE employe
 	
 ALTER TABLE employe
 	ADD CONSTRAINT fk_employe_departement FOREIGN KEY (departement) REFERENCES departement(nom);
+
+
+--Kerian 
+ALTER TABLE profileur_laser_calibration
+	ADD CONSTRAINT fk_profileur_laser_calibration_calibration FOREIGN KEY (calibration) REFERENCES calibaration(id);
+--Kerian
+ALTER TABLE profileur_laser_calibration
+	ADD CONSTRAINT fk_profileur_laser_calibration_profileur_laser FOREIGN KEY (profileur) REFERENCES profileur_laser(id);
+--Kerian
+ALTER TABLE calibration
+	ADD CONSTRAINT fk_calibration_employe FOREIGN KEY (employe) REFERENCES employe(id);
+
+
+
+
+
+
