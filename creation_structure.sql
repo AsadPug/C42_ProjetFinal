@@ -1,3 +1,6 @@
+ALTER TABLE IF EXISTS employe DROP CONSTRAINT IF EXISTS fk_employe_poste;
+ALTER TABLE IF EXISTS employe DROP CONSTRAINT IF EXISTS fk_employe_departement;
+
 DROP TABLE IF EXISTS vehicule, calibration, profileur_laser, profileur_laser_calibration, employe, poste, departement, troncon, intersection, inspection, vehicule_inspection, profileur_laser_inspection, troncon_inspection; 
 
 DROP TYPE IF EXISTS genre;
@@ -49,6 +52,7 @@ CREATE TABLE troncon_inspection(
 	CONSTRAINT pk_tro_ins PRIMARY KEY(id)
 );
 
+-- Thomas
 CREATE TABLE employe(
 	id					SERIAL,
 	nas					CHAR(9) 	NOT NULL,
@@ -65,6 +69,7 @@ CREATE TABLE employe(
 	CONSTRAINT cc_employe_salaire CHECK(salaire BETWEEN 15.00 AND 250.00)
 );
 
+-- Thomas
 CREATE TABLE poste(
 	id					SERIAL,
 	nom					VARCHAR(32) 	NOT NULL,
@@ -72,6 +77,7 @@ CREATE TABLE poste(
 	CONSTRAINT pk_poste_id PRIMARY KEY(id)
 );
 
+--Thomas
 CREATE TABLE departement(
 	id					SERIAL,
 	nom					VARCHAR(32) 	NOT NULL,
@@ -79,6 +85,7 @@ CREATE TABLE departement(
 	CONSTRAINT pk_departement_id PRIMARY KEY(id)
 );
 
+--Thomas
 CREATE TABLE troncon(
 	id					SERIAL,
 	nom					VARCHAR(32)	NOT NULL,
@@ -95,6 +102,7 @@ CREATE TABLE troncon(
 	CONSTRAINT cc_troncon_nbVoies CHECK(nbVoies BETWEEN 1 AND 8)
 );
 
+--Thomas
 CREATE TABLE intersection(
 	id					SERIAL,
 	identifiant				INTEGER		NOT NULL,
@@ -149,3 +157,9 @@ CREATE TABLE profileur_laser_calibration(
 	
 	CONSTRAINT pk_profileur_laser_calibration PRIMARY KEY(id)
 );
+
+ALTER TABLE employe
+	ADD CONSTRAINT fk_employe_poste FOREIGN KEY (poste) REFERENCES poste(nom);
+	
+ALTER TABLE employe
+	ADD CONSTRAINT fk_employe_departement FOREIGN KEY (departement) REFERENCES departement(nom);
