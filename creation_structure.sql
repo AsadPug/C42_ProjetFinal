@@ -113,6 +113,7 @@ CREATE TABLE intersection(
 	CONSTRAINT cc_intersection_identifiant CHECK (identifiant BETWEEN 1000000 AND 9999999)
 );
 
+--Kerian
 CREATE TABLE vehicule(
 	id 					SERIAL,
 	marque 					VARCHAR(32)	NOT NULL,
@@ -122,7 +123,7 @@ CREATE TABLE vehicule(
 	
 	CONSTRAINT pk_vehicule PRIMARY KEY(id)
 );
-
+--Kerian
 CREATE TABLE profileur_laser(
 	id 					SERIAL,
 	marque 					VARCHAR(32) 	NOT NULL,
@@ -133,10 +134,11 @@ CREATE TABLE profileur_laser(
 	CONSTRAINT pk_profileur_laser PRIMARY KEY(id)
 );
 
+--Kerian
 CREATE TABLE calibration (
 	id 					SERIAL,
-	date_debut 				DATE 		NOT NULL, 
-	date_fin 				DATE 		NOT NULL,
+	date_debut 				TIMESTAMP 		NOT NULL, 
+	date_fin 				TIMESTAMP 		NOT NULL,
 	employe_id 				INTEGER 	NOT NULL,
 	v1 					NUMERIC(8, 4) 	NOT NULL,
 	v2 					NUMERIC(8, 4) 	NOT NULL,
@@ -150,6 +152,7 @@ CREATE TABLE calibration (
 	)
 );
 
+--Kerian
 CREATE TABLE profileur_laser_calibration(
 	id SERIAL,
 	id_calibaration 			INTEGER		NOT NULL,
