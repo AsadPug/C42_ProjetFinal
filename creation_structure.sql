@@ -14,23 +14,25 @@ DROP TYPE IF EXISTS pavage;
 CREATE TYPE genre AS ENUM('f', 'h', 'x');
 CREATE TYPE pavage AS ENUM('asphalte', 'ciment', 'pavé brique', 'pavé pierre', 'non pavé', 'indéterminé');
 
+--Abigail 
 CREATE TABLE inspection(
-	id					SERIAL,
+	id						SERIAL,
 	date_debut 				DATE		NOT NULL,
 	date_fin				DATE		NOT NULL,
-	veh_insp				INTEGER		NOT NULL,
-	prof_laser_insp				INTEGER		NOT NULL,
-	chemin_fichier 				VARCHAR(1024)	NOT NULL,
+	vehicule_insp			INTEGER		NOT NULL,
+	profileur_laser_insp	INTEGER		NOT NULL,
+	chemin_fichier 			VARCHAR(1024)NOT NULL,
 	
 	CONSTRAINT pk_ins PRIMARY KEY(id)
 );
 
+--Abigail
 CREATE TABLE vehicule_inspection(
-	id 					SERIAL,
+	id 						SERIAL,
 	employe					INTEGER 	NOT NULL,
 	vehicule				INTEGER		NOT NULL,
-	kilo_debut				NUMERIC(8,2)	NOT NULL,
-	kilo_fin				NUMERIC(8,2)	NOT NULL,
+	kilo_debut				NUMERIC(8,2)NOT NULL,
+	kilo_fin				NUMERIC(8,2)NOT NULL,
 	
 	CONSTRAINT pk_veh_ins PRIMARY KEY(id),
 	CONSTRAINT cc_veh_ins_kilo_d CHECK(
@@ -41,16 +43,18 @@ CREATE TABLE vehicule_inspection(
 	)
 );
 
+--Abigail
 CREATE TABLE profileur_laser_inspection(
-	id 					SERIAL,
-	profileur				INTEGER 	NOT NULL,
+	id 						SERIAL,
+	profileur_laser			INTEGER 	NOT NULL,
 	employe					INTEGER 	NOT NULL,
 	
 	CONSTRAINT pk_pro_ins PRIMARY KEY(id)
 );
 
+--Abigail
 CREATE TABLE troncon_inspection(
-	id					SERIAL,
+	id						SERIAL,
 	troncon					INTEGER		NOT NULL,
 	inspection 				INTEGER 	NOT NULL,
 	
@@ -187,7 +191,32 @@ DROP INDEX IF EXISTS cherche_noserie;
 CREATE INDEX cherche_noserie
 	ON calibration(no_serie);
 
+--Abigail
+ALTER TABLE inspection
+	ADD CONSTRAINT fk_inspection_vehicule_insp FOREIGN KEY (vehicule_insp) REFERENCES vehicule_inspection(id);
+--Abigail
+ALTER TABLE inspection
+	ADD CONSTRAINT fk_inspection_profileur_laser_insp FOREIGN KEY (profileur_laser_insp) REFERENCES profileur_laser_inspection(id);
+--Abigail	
+ALTER TABLE vehicule_inspection
+	ADD CONSTRAINT fk_vehicule_inspection_vehicule FOREIGN KEY (vehicule) REFERENCES vehicule(id);
+--Abigail	
+ALTER TABLE vehicule_inspection
+	ADD CONSTRAINT fk_vehicule_inspection_employe FOREIGN KEY (employe) REFERENCES employe(id);
+--Abigail	
+ALTER TABLE profileur_laser_inspection
+	ADD CONSTRAINT fk_profileur_laser_inspection_vehicule FOREIGN KEY (profileur_laser) REFERENCES profileur_laser(id);
+--Abigail	
+ALTER TABLE profileur_laser_inspection
+	ADD CONSTRAINT fk_profileur_laser_inspection_employe FOREIGN KEY (employe) REFERENCES employe(id);
+--Abigail	
+ALTER TABLE troncon_inspection
+	ADD CONSTRAINT fk_troncon_inspection_troncon FOREIGN KEY (troncon) REFERENCES troncon(id);
+--Abigail	
+ALTER TABLE troncon_inspection
+	ADD CONSTRAINT fk_troncon_inspection_inspection FOREIGN KEY (inspection) REFERENCES inspection(id);
+	
 
-
+	
 
 
