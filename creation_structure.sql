@@ -170,11 +170,13 @@ CREATE TABLE profileur_laser_calibration(
 	CONSTRAINT pk_profileur_laser_calibration PRIMARY KEY(id)
 );
 
+--Thomas
 ALTER TABLE employe
-	ADD CONSTRAINT fk_employe_poste FOREIGN KEY (poste) REFERENCES poste(nom);
+	ADD CONSTRAINT fk_employe_poste FOREIGN KEY (poste) REFERENCES poste(id);
 	
+--Thomas
 ALTER TABLE employe
-	ADD CONSTRAINT fk_employe_departement FOREIGN KEY (departement) REFERENCES departement(nom);
+	ADD CONSTRAINT fk_employe_departement FOREIGN KEY (departement) REFERENCES departement(id);
 
 
 --Kerian 
