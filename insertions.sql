@@ -14,7 +14,7 @@ INSERT INTO type_panneau(type)
 	('céder'),
 	('limite de vitesse');
 	
---Thomas
+-- Thomas
 INSERT INTO forme (forme)
   VALUES("ronde"),
         ("carrée"),
@@ -33,7 +33,7 @@ INSERT INTO forme (forme)
         ("barre verticale"),
         ("barre horizontale");
         
---Thomas
+-- Thomas
 INSERT INTO couleur (hex, nom)
   VALUES("FF0000", "rouge"),
         ("FFFF00", "jaune"),
@@ -67,3 +67,8 @@ INSERT INTO employe(nas, nom, prenom, genre, date_embauche, salaire, poste, depa
 			, (SELECT id FROM poste WHERE nom = 'technicien')
 			, (SELECT id FROM departement WHERE nom = 'informatique'));
 
+-- Thomas
+INSERT INTO employe(nas, nom, prenom, genre, date_embauche, salaire, poste, departement)
+	VALUES (912345678, 'Garneau', 'Thomas', 'h', CURRENT_DATE, 25.0
+			, (SELECT id FROM poste WHERE nom = 'professionnel')
+			, (SELECT id FROM departement WHERE nom = 'ventes et représentation'));
