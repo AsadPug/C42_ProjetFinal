@@ -7,6 +7,12 @@ VALUES('accès fauteuil roulant');
 INSERT INTO type_dispositif_particulier(type)
 VALUES('signal audio pour piéton');
 
+--Kerian
+INSERT INTO type_panneau(type)
+	VALUES('arrêt'),
+	('céder'),
+	('limite de vitesse');
+	
 --Thomas
 INSERT INTO forme (forme)
   VALUES("ronde"),
