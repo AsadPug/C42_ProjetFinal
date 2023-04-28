@@ -255,10 +255,11 @@ CREATE TABLE dispositif_lumineux(
 -- Ahmed
 CREATE TABLE couleur(
 	  id			SERIAL
-	, hex			VARCHAR(9)		NOT NULL
+	, hex			VARCHAR(6)		NOT NULL
 	, nom			VARCHAR(64)		NOT NULL
 	
-	, CONSTRAINT 	pk_coul			PRIMARY KEY(id)
+	, CONSTRAINT 	pk_coul			PRIMARY KEY(id),
+	CONSTRAINT cc_couleur_hex CHECK(hex ~* '^[a-f0-9]{2}[a-f0-9]{2}[a-f0-9]{2}$')
 );
 
 -- Ahmed
