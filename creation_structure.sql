@@ -8,11 +8,16 @@ ALTER TABLE IF EXISTS calibration DROP CONSTRAINT IF EXISTS fk_calibration_emplo
 ALTER TABLE IF EXISTS lumiere 							DROP CONSTRAINT IF EXISTS fk_lum_forme;
 ALTER TABLE IF EXISTS lumiere 							DROP CONSTRAINT IF EXISTS fk_lum_couleur;
 ALTER TABLE IF EXISTS lumiere							DROP CONSTRAINT IF EXISTS fk_lum_dispositif;
--- ALTER TABLE IF EXISTS panneau 						DROP CONSTRAINT IF EXISTS fk_pan_troncon;
+ALTER TABLE IF EXISTS panneau 							DROP CONSTRAINT IF EXISTS fk_pan_troncon;
 ALTER TABLE IF EXISTS panneau 							DROP CONSTRAINT IF EXISTS fk_pan_panneau;
--- ALTER TABLE IF EXISTS dispositif_particulier 		DROP CONSTRAINT IF EXISTS fk_dis_par_troncon;
+ALTER TABLE IF EXISTS dispositif_particulier 			DROP CONSTRAINT IF EXISTS fk_dis_par_troncon;
 ALTER TABLE IF EXISTS dispositif_particulier 			DROP CONSTRAINT IF EXISTS fk_dis_par_panneau;
--- ALTER TABLE IF EXISTS dispositif_lumineux 			DROP CONSTRAINT IF EXISTS fk_dl_tro;
+ALTER TABLE IF EXISTS dispositif_lumineux 				DROP CONSTRAINT IF EXISTS fk_dl_tro;
+ALTER TABLE IF EXISTS inspection						DROP CONSTRAINT IF EXISTS fk_inspection_vehicule;
+ALTER TABLE IF EXISTS inspection						DROP CONSTRAINT IF EXISTS fk_inspection_profileur_laser;
+ALTER TABLE IF EXISTS inspection						DROP CONSTRAINT IF EXISTS fk_inspection_conducteur;
+ALTER TABLE IF EXISTS inspection						DROP CONSTRAINT IF EXISTS fk_inspection_inspecteur;
+
 
 
 -- Suppression de tables
@@ -31,7 +36,7 @@ DROP TABLE IF EXISTS dispositif_lumineux;
 DROP TYPE IF EXISTS TYPE_MODE;
 DROP TYPE IF EXISTS TYPE_ORIENTAION;
 
-DROP TABLE IF EXISTS vehicule, calibration, profileur_laser, profileur_laser_calibration, employe, poste, departement, troncon, intersection, inspection, vehicule_inspection, profileur_laser_inspection, troncon_inspection; 
+DROP TABLE IF EXISTS vehicule, calibration, profileur_laser, profileur_laser_calibration, employe, poste, departement, troncon, intersection, inspection, troncon_inspection; 
 
 DROP TYPE IF EXISTS genre;
 DROP TYPE IF EXISTS pavage;
@@ -80,14 +85,14 @@ CREATE TABLE troncon_inspection(
 -- Thomas
 CREATE TABLE employe(
 	id					SERIAL,
-	nas					CHAR(9) 	NOT NULL,
-	nom					VARCHAR(32)	NOT NULL,
-	prenom				VARCHAR(32)	NOT NULL,
+	nas					CHAR(9) 		NOT NULL,
+	nom					VARCHAR(32)		NOT NULL,
+	prenom				VARCHAR(32)		NOT NULL,
 	genre				genre			NOT NULL,
 	date_embauche		DATE			NOT NULL,
 	salaire				DECIMAL(5, 2) 	NOT NULL DEFAULT 27.50,
-	poste				VARCHAR(32)		NOT NULL,
-	departement			VARCHAR(32)		NOT NULL,
+	poste				INTEGER			NOT NULL,
+	departement			INTEGER		NOT NULL,
 	
 	CONSTRAINT pk_employe_id PRIMARY KEY(id),
 	CONSTRAINT cc_employe_date_embauche CHECK(date_embauche BETWEEN '2018-01-01' AND CURRENT_DATE),
@@ -180,7 +185,7 @@ CREATE TABLE calibration (
 --Kerian
 CREATE TABLE profileur_laser_calibration(
 	id SERIAL,
-	calibaration 		INTEGER		NOT NULL,
+	calibration 		INTEGER		NOT NULL,
 	profileur 			INTEGER 	NOT NULL,
 	
 	CONSTRAINT pk_profileur_laser_calibration PRIMARY KEY(id)
@@ -250,7 +255,8 @@ CREATE TABLE dispositif_lumineux(
 -- Ahmed
 CREATE TABLE couleur(
 	  id			SERIAL
-	, couleur		VARCHAR(64)		NOT NULL
+	, hex			VARCHAR(9)		NOT NULL
+	, nom			VARCHAR(64)		NOT NULL
 	
 	, CONSTRAINT 	pk_coul			PRIMARY KEY(id)
 );
@@ -275,7 +281,7 @@ ALTER TABLE employe
 
 --Kerian 
 ALTER TABLE profileur_laser_calibration
-	ADD CONSTRAINT fk_profileur_laser_calibration_calibration FOREIGN KEY (calibration) REFERENCES calibaration(id);
+	ADD CONSTRAINT fk_profileur_laser_calibration_calibration FOREIGN KEY (calibration) REFERENCES calibration(id);
 --Kerian
 ALTER TABLE profileur_laser_calibration
 	ADD CONSTRAINT fk_profileur_laser_calibration_profileur_laser FOREIGN KEY (profileur) REFERENCES profileur_laser(id);
@@ -283,22 +289,22 @@ ALTER TABLE profileur_laser_calibration
 ALTER TABLE calibration
 	ADD CONSTRAINT fk_calibration_employe FOREIGN KEY (employe) REFERENCES employe(id);
 --Kerian
-DROP INDEX IF EXISTS cherche_noserie;
-CREATE INDEX cherche_noserie
-	ON calibration(no_serie);
+--DROP INDEX IF EXISTS cherche_noserie;
+--CREATE INDEX cherche_noserie
+--	ON calibration(no_serie);
 
 --Abigail	
 ALTER TABLE inspection
 	ADD CONSTRAINT fk_inspection_vehicule FOREIGN KEY (vehicule) REFERENCES vehicule(id);
 --Abigail	
 ALTER TABLE inspection
-	ADD CONSTRAINT fk_inspection_employe FOREIGN KEY (conducteur) REFERENCES employe(id);
+	ADD CONSTRAINT fk_inspection_conducteur FOREIGN KEY (conducteur) REFERENCES employe(id);
 --Abigail	
 ALTER TABLE inspection
-	ADD CONSTRAINT fk_inspection_vehicule FOREIGN KEY (profileur_laser) REFERENCES profileur_laser(id);
+	ADD CONSTRAINT fk_inspection_profileur_laser FOREIGN KEY (profileur_laser) REFERENCES profileur_laser(id);
 --Abigail	
 ALTER TABLE inspection
-	ADD CONSTRAINT fk_inspection_employe FOREIGN KEY (inspecteur) REFERENCES employe(id);
+	ADD CONSTRAINT fk_inspection_inspecteur FOREIGN KEY (inspecteur) REFERENCES employe(id);
 --Abigail	
 ALTER TABLE troncon_inspection
 	ADD CONSTRAINT fk_troncon_inspection_troncon FOREIGN KEY (troncon) REFERENCES troncon(id);
@@ -307,13 +313,13 @@ ALTER TABLE troncon_inspection
 	ADD CONSTRAINT fk_troncon_inspection_inspection FOREIGN KEY (inspection) REFERENCES inspection(id);
 	
 -- Ahmed
--- ALTER TABLE panneau 	ADD CONSTRAINT fk_pan_troncon		FOREIGN KEY(troncon) 	REFERENCES troncon(id);
+ALTER TABLE panneau 	ADD CONSTRAINT fk_pan_troncon		FOREIGN KEY(troncon) 	REFERENCES troncon(id);
 
 -- Ahmed
 ALTER TABLE panneau 	ADD CONSTRAINT fk_pan_panneau		FOREIGN KEY(type)		REFERENCES type_panneau(id);
 
 -- Ahmed
--- ALTER TABLE dispositif_particulier 	ADD CONSTRAINT fk_dis_par_troncon	FOREIGN KEY(troncon)	REFERENCES troncon(id);
+ALTER TABLE dispositif_particulier 	ADD CONSTRAINT fk_dis_par_troncon	FOREIGN KEY(troncon)	REFERENCES troncon(id);
 
 -- Ahmed
 ALTER TABLE dispositif_particulier 	ADD CONSTRAINT fk_dis_par_panneau	FOREIGN KEY(type)	REFERENCES type_dispositif_particulier(id);
@@ -325,11 +331,10 @@ ALTER TABLE lumiere ADD CONSTRAINT fk_lum_forme			FOREIGN KEY(forme)		REFERENCES
 ALTER TABLE lumiere ADD CONSTRAINT fk_lum_couleur		FOREIGN KEY(couleur) 	REFERENCES couleur(id);
 
 -- Ahmed
-ALTER TABLE lumiere ADD CONSTRAINT fk_lum_dispositif	FOREIGN KEY(dispositif) 	REFERENCES dispositif(id);
-
+ALTER TABLE lumiere ADD CONSTRAINT fk_lum_dispositif	FOREIGN KEY(dispositif) 	REFERENCES dispositif_lumineux(id);
 
 -- Ahmed
--- ALTER TABLE dispositif_lumineux ADD CONSTRAINT fk_dl_tro	FOREIGN KEY(troncon) REFERENCES troncon(id);
+ALTER TABLE dispositif_lumineux ADD CONSTRAINT fk_dl_tro	FOREIGN KEY(troncon) REFERENCES troncon(id);
 	
 
 
