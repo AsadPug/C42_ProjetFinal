@@ -297,18 +297,23 @@ ALTER TABLE calibration
 --Abigail	
 ALTER TABLE inspection
 	ADD CONSTRAINT fk_inspection_vehicule FOREIGN KEY (vehicule) REFERENCES vehicule(id);
+	
 --Abigail	
 ALTER TABLE inspection
 	ADD CONSTRAINT fk_inspection_conducteur FOREIGN KEY (conducteur) REFERENCES employe(id);
+	
 --Abigail	
 ALTER TABLE inspection
 	ADD CONSTRAINT fk_inspection_profileur_laser FOREIGN KEY (profileur_laser) REFERENCES profileur_laser(id);
+	
 --Abigail	
 ALTER TABLE inspection
 	ADD CONSTRAINT fk_inspection_inspecteur FOREIGN KEY (inspecteur) REFERENCES employe(id);
+	
 --Abigail	
 ALTER TABLE troncon_inspection
 	ADD CONSTRAINT fk_troncon_inspection_troncon FOREIGN KEY (troncon) REFERENCES troncon(id);
+	
 --Abigail	
 ALTER TABLE troncon_inspection
 	ADD CONSTRAINT fk_troncon_inspection_inspection FOREIGN KEY (inspection) REFERENCES inspection(id);
