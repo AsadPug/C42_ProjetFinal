@@ -264,7 +264,7 @@ CREATE TABLE couleur(
 -- Ahmed
 CREATE TABLE forme(
 	  id			SERIAL
-	, frome			VARCHAR(64)		NOT NULL
+	, forme			VARCHAR(64)		NOT NULL
 	
 	, CONSTRAINT 	pk_forme		PRIMARY KEY(id)
 );
