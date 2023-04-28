@@ -1,7 +1,8 @@
 
 --Abigail
 INSERT INTO type_dispositif_particulier(type)
-VALUES('accès fauteuil roulant');
+VALUES('accès fauteuil roulant'),
+      ('signal audio pour piéton');
 
 --Abigail
 INSERT INTO type_dispositif_particulier(type)
@@ -65,3 +66,4 @@ INSERT INTO employe(nas, nom, prenom, genre, date_embauche, salaire, poste, depa
 	VALUES (123456789, 'Sadek', 'Ahmed', 'h', CURRENT_DATE, 55.0
 			, (SELECT id FROM poste WHERE nom = 'technicien')
 			, (SELECT id FROM departement WHERE nom = 'informatique'));
+
