@@ -32,11 +32,15 @@ DROP TYPE IF EXISTS TYPE_ORIENTAION;
 
 -- Création de enums
 
+-- Ahmed
 CREATE TYPE TYPE_MODE 		AS ENUM ('solide', 'clignotant', 'contôlé', 'intelligente');
+
+-- Ahmed
 CREATE TYPE TYPE_ORIENTAION AS ENUM ('horizontale', 'verticale', 'autre');
 
 -- Création de tables
 
+-- Ahmed
 CREATE TABLE type_panneau(
 	  id			SERIAL
 	, type			VARCHAR(64)		NOT NULL
@@ -44,6 +48,7 @@ CREATE TABLE type_panneau(
 	, CONSTRAINT 	pk_type_pan			PRIMARY KEY(id)
 );
 
+-- Ahmed
 CREATE TABLE panneau(
 	  id			SERIAL
 	, troncon		INTEGER				NOT NULL
@@ -54,6 +59,7 @@ CREATE TABLE panneau(
 	, CONSTRAINT	cc_pan_pourcentage 		CHECK(position <= 100.00)
 );
 
+-- Ahmed
 CREATE TABLE type_dispositif_particulier(
 	  id			SERIAL
 	, type			VARCHAR(64)		NOT NULL
@@ -61,7 +67,7 @@ CREATE TABLE type_dispositif_particulier(
 	, CONSTRAINT 	pk_type_dis_par		PRIMARY KEY(id)
 );
 
-
+-- Ahmed
 CREATE TABLE dispositif_particulier(
 	  id			SERIAL
 	, troncon		INTEGER				NOT NULL
@@ -72,6 +78,7 @@ CREATE TABLE dispositif_particulier(
 	, CONSTRAINT	cc_dp_pourcentage 	CHECK(position <= 100.00)
 );
 
+-- Ahmed
 CREATE TABLE lumiere(
 	  id			SERIAL
 	, forme			INTEGER				NOT NULL
@@ -82,7 +89,7 @@ CREATE TABLE lumiere(
 	, CONSTRAINT 	pk_lum		PRIMARY KEY(id)
 );
 
-
+-- Ahmed
 CREATE TABLE dispositif_lumineux(
 	  id			SERIAL
 	, troncon		INTEGER				NOT NULL
@@ -93,6 +100,7 @@ CREATE TABLE dispositif_lumineux(
 	, CONSTRAINT	cc_dl_pourcentage 	CHECK(position <= 100.00)
 );
 
+-- Ahmed
 CREATE TABLE dl_lumiere(
 	  id				SERIAL
 	, dispositif		INTEGER				NOT NULL
@@ -101,6 +109,7 @@ CREATE TABLE dl_lumiere(
 	, CONSTRAINT 	pk_dl_lum			PRIMARY KEY(id)
 );
 
+-- Ahmed
 CREATE TABLE couleur(
 	  id			SERIAL
 	, couleur		VARCHAR(64)		NOT NULL
@@ -108,6 +117,7 @@ CREATE TABLE couleur(
 	, CONSTRAINT 	pk_coul			PRIMARY KEY(id)
 );
 
+-- Ahmed
 CREATE TABLE forme(
 	  id			SERIAL
 	, frome			VARCHAR(64)		NOT NULL
@@ -117,21 +127,31 @@ CREATE TABLE forme(
 
 -- Ajout de clés étrangères
 
--- panneau
+-- Ahmed
 -- ALTER TABLE panneau 	ADD CONSTRAINT fk_pan_troncon		FOREIGN KEY(troncon) 	REFERENCES troncon(id);
+
+-- Ahmed
 ALTER TABLE panneau 	ADD CONSTRAINT fk_pan_panneau		FOREIGN KEY(type)		REFERENCES type_panneau(id);
 
--- dispositif_particulier
+-- Ahmed
 -- ALTER TABLE dispositif_particulier 	ADD CONSTRAINT fk_dis_par_troncon	FOREIGN KEY(troncon)	REFERENCES troncon(id);
+
+-- Ahmed
 ALTER TABLE dispositif_particulier 	ADD CONSTRAINT fk_dis_par_panneau	FOREIGN KEY(type)	REFERENCES type_dispositif_particulier(id);
 
--- dispositif_lumineux
+-- Ahmed
 ALTER TABLE lumiere ADD CONSTRAINT fk_lum_forme		FOREIGN KEY(forme)		REFERENCES forme(id);
+
+-- Ahmed
 ALTER TABLE lumiere ADD CONSTRAINT fk_lum_couleur	FOREIGN KEY(couleur) 	REFERENCES couleur(id);
 
+-- Ahmed
 -- ALTER TABLE dispositif_lumineux ADD CONSTRAINT fk_dl_tro	FOREIGN KEY(troncon) REFERENCES troncon(id);
 
+-- Ahmed
 ALTER TABLE dl_lumiere ADD CONSTRAINT fk_dl_lum_dis		FOREIGN KEY(dispositif)	REFERENCES dispositif_lumineux(id);
+
+-- Ahmed
 ALTER TABLE dl_lumiere ADD CONSTRAINT fk_dl_lum_lum		FOREIGN KEY(lumiere)	REFERENCES lumiere(id);
 
 --------------------------------------
