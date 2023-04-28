@@ -32,3 +32,30 @@ INSERT INTO couleur (hex, nom)
         ("FFFF00", "jaune"),
         ("00FF00", "vert"),
         ("FFFFFF", "blanc");
+        
+        -- insertion 
+
+-- Ahmed
+INSERT INTO departement(nom)
+	VALUES ('administration')
+		 , ('ventes et représentation')
+		 , ('achats')
+		 , ('mécanique')
+		 , ('électrique')
+		 , ('informatique')
+		 , ('recherche');
+
+-- Ahmed
+INSERT INTO poste(nom)
+	VALUES ('professionnel')
+		 , ('technicien')
+		 , ('ingénieur')
+		 , ('scientifique')
+		 , ('manutentionnaire')
+		 , ('soutient');
+
+-- Ahmed
+INSERT INTO employe(nas, nom, prenom, genre, date_embauche, salaire, poste, departement)
+	VALUES (123456789, 'Sadek', 'Ahmed', 'h', CURRENT_DATE, 55.0
+			, (SELECT id FROM poste WHERE nom = 'technicien')
+			, (SELECT id FROM departement WHERE nom = 'informatique'));
