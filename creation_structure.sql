@@ -19,37 +19,22 @@ CREATE TABLE inspection(
 	id						SERIAL,
 	date_debut 				DATE		NOT NULL,
 	date_fin				DATE		NOT NULL,
-	vehicule_insp			INTEGER		NOT NULL,
-	profileur_laser_insp	INTEGER		NOT NULL,
 	chemin_fichier 			VARCHAR(1024)NOT NULL,
-	
-	CONSTRAINT pk_ins PRIMARY KEY(id)
-);
-
---Abigail
-CREATE TABLE vehicule_inspection(
-	id 						SERIAL,
-	employe					INTEGER 	NOT NULL,
+	conducteur				INTEGER 	NOT NULL,
 	vehicule				INTEGER		NOT NULL,
 	kilo_debut				NUMERIC(8,2)NOT NULL,
 	kilo_fin				NUMERIC(8,2)NOT NULL,
+	inspecteur				INTEGER 	NOT NULL,
+	profileur_laser			INTEGER 	NOT NULL,
 	
-	CONSTRAINT pk_veh_ins PRIMARY KEY(id),
+	
+	CONSTRAINT pk_ins PRIMARY KEY(id),
 	CONSTRAINT cc_veh_ins_kilo_d CHECK(
 		kilo_debut BETWEEN 1 AND 500000
 	),
 	CONSTRAINT cc_veh_ins_kilo_f CHECK(
 		kilo_fin BETWEEN 1 AND 500000
 	)
-);
-
---Abigail
-CREATE TABLE profileur_laser_inspection(
-	id 						SERIAL,
-	profileur_laser			INTEGER 	NOT NULL,
-	employe					INTEGER 	NOT NULL,
-	
-	CONSTRAINT pk_pro_ins PRIMARY KEY(id)
 );
 
 --Abigail
@@ -191,24 +176,18 @@ DROP INDEX IF EXISTS cherche_noserie;
 CREATE INDEX cherche_noserie
 	ON calibration(no_serie);
 
---Abigail
+--Abigail	
 ALTER TABLE inspection
-	ADD CONSTRAINT fk_inspection_vehicule_insp FOREIGN KEY (vehicule_insp) REFERENCES vehicule_inspection(id);
---Abigail
+	ADD CONSTRAINT fk_inspection_vehicule FOREIGN KEY (vehicule) REFERENCES vehicule(id);
+--Abigail	
 ALTER TABLE inspection
-	ADD CONSTRAINT fk_inspection_profileur_laser_insp FOREIGN KEY (profileur_laser_insp) REFERENCES profileur_laser_inspection(id);
+	ADD CONSTRAINT fk_inspection_employe FOREIGN KEY (conducteur) REFERENCES employe(id);
 --Abigail	
-ALTER TABLE vehicule_inspection
-	ADD CONSTRAINT fk_vehicule_inspection_vehicule FOREIGN KEY (vehicule) REFERENCES vehicule(id);
+ALTER TABLE inspection
+	ADD CONSTRAINT fk_inspection_vehicule FOREIGN KEY (profileur_laser) REFERENCES profileur_laser(id);
 --Abigail	
-ALTER TABLE vehicule_inspection
-	ADD CONSTRAINT fk_vehicule_inspection_employe FOREIGN KEY (employe) REFERENCES employe(id);
---Abigail	
-ALTER TABLE profileur_laser_inspection
-	ADD CONSTRAINT fk_profileur_laser_inspection_vehicule FOREIGN KEY (profileur_laser) REFERENCES profileur_laser(id);
---Abigail	
-ALTER TABLE profileur_laser_inspection
-	ADD CONSTRAINT fk_profileur_laser_inspection_employe FOREIGN KEY (employe) REFERENCES employe(id);
+ALTER TABLE inspection
+	ADD CONSTRAINT fk_inspection_employe FOREIGN KEY (inspecteur) REFERENCES employe(id);
 --Abigail	
 ALTER TABLE troncon_inspection
 	ADD CONSTRAINT fk_troncon_inspection_troncon FOREIGN KEY (troncon) REFERENCES troncon(id);
