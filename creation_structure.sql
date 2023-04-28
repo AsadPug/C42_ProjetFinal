@@ -7,13 +7,12 @@ ALTER TABLE IF EXISTS calibration DROP CONSTRAINT IF EXISTS fk_calibration_emplo
 -- Suppression de contraintes
 ALTER TABLE IF EXISTS lumiere 							DROP CONSTRAINT IF EXISTS fk_lum_forme;
 ALTER TABLE IF EXISTS lumiere 							DROP CONSTRAINT IF EXISTS fk_lum_couleur;
+ALTER TABLE IF EXISTS lumiere							DROP CONSTRAINT IF EXISTS fk_lum_dispositif;
 -- ALTER TABLE IF EXISTS panneau 						DROP CONSTRAINT IF EXISTS fk_pan_troncon;
 ALTER TABLE IF EXISTS panneau 							DROP CONSTRAINT IF EXISTS fk_pan_panneau;
 -- ALTER TABLE IF EXISTS dispositif_particulier 		DROP CONSTRAINT IF EXISTS fk_dis_par_troncon;
 ALTER TABLE IF EXISTS dispositif_particulier 			DROP CONSTRAINT IF EXISTS fk_dis_par_panneau;
 -- ALTER TABLE IF EXISTS dispositif_lumineux 			DROP CONSTRAINT IF EXISTS fk_dl_tro;
-ALTER TABLE IF EXISTS dl_lumiere 						DROP CONSTRAINT IF EXISTS fk_dl_lum_dis;
-ALTER TABLE IF EXISTS dl_lumiere 						DROP CONSTRAINT IF EXISTS fk_dl_lum_lum;
 
 
 -- Suppression de tables
@@ -26,7 +25,6 @@ DROP TABLE IF EXISTS couleur;
 DROP TABLE IF EXISTS forme;
 DROP TABLE IF EXISTS lumiere;
 DROP TABLE IF EXISTS dispositif_lumineux;
-DROP TABLE IF EXISTS dl_lumiere;
 
 -- Suppression de enums
 
@@ -84,12 +82,12 @@ CREATE TABLE employe(
 	id					SERIAL,
 	nas					CHAR(9) 	NOT NULL,
 	nom					VARCHAR(32)	NOT NULL,
-	prenom					VARCHAR(32)	NOT NULL,
-	genre					genre		NOT NULL,
-	date_embauche				DATE		NOT NULL,
-	salaire					DECIMAL(5, 2) 	NOT NULL DEFAULT 27.50,
-	poste					VARCHAR(32)	NOT NULL,
-	departement				VARCHAR(32)	NOT NULL,
+	prenom				VARCHAR(32)	NOT NULL,
+	genre				genre			NOT NULL,
+	date_embauche		DATE			NOT NULL,
+	salaire				DECIMAL(5, 2) 	NOT NULL DEFAULT 27.50,
+	poste				VARCHAR(32)		NOT NULL,
+	departement			VARCHAR(32)		NOT NULL,
 	
 	CONSTRAINT pk_employe_id PRIMARY KEY(id),
 	CONSTRAINT cc_employe_date_embauche CHECK(date_embauche BETWEEN '2018-01-01' AND CURRENT_DATE),
@@ -115,13 +113,13 @@ CREATE TABLE departement(
 --Thomas
 CREATE TABLE troncon(
 	id					SERIAL,
-	nom					VARCHAR(32)	NOT NULL,
+	nom					VARCHAR(32)			NOT NULL,
 	intersection_debut			INTEGER		NOT NULL,
 	intersection_fin			INTEGER		NOT NULL,
 	longueur				DECIMAL(7, 1)	NOT NULL,
 	limite_vitesse				INTEGER		NOT NULL,
-	nbVoies					INTEGER		NOT NULL DEFAULT 1,
-	pavage					pavage		NOT NULL,
+	nbVoies					INTEGER			NOT NULL DEFAULT 1,
+	pavage					pavage			NOT NULL,
 	
 	CONSTRAINT pk_troncon_id PRIMARY KEY(id),
 	CONSTRAINT cc_troncon_longueur CHECK(longueur BETWEEN 0.0 AND 100000.0),
@@ -143,10 +141,10 @@ CREATE TABLE intersection(
 --Kerian
 CREATE TABLE vehicule(
 	id 					SERIAL,
-	marque 					VARCHAR(32)	NOT NULL,
-	modele 					VARCHAR(32) 	NOT NULL,
-	date_acquisition 			DATE,
-	immatriculation 			CHAR(6) 	NOT NULL,
+	marque 				VARCHAR(32)		NOT NULL,
+	modele 				VARCHAR(32) 	NOT NULL,
+	date_acquisition 	DATE,
+	immatriculation 	CHAR(6) 		NOT NULL,
 	
 	CONSTRAINT pk_vehicule PRIMARY KEY(id)
 );
@@ -154,7 +152,7 @@ CREATE TABLE vehicule(
 CREATE TABLE profileur_laser(
 	id 					SERIAL,
 	marque 					VARCHAR(32) 	NOT NULL,
-	no_serie 				CHAR(16) 	NOT NULL,
+	no_serie 				CHAR(16) 		NOT NULL,
 	date_fabrication 			DATE,
 	date_acquisition 			DATE,
 	
@@ -164,12 +162,12 @@ CREATE TABLE profileur_laser(
 --Kerian
 CREATE TABLE calibration (
 	id 					SERIAL,
-	date_debut 				TIMESTAMP 		NOT NULL, 
-	date_fin 				TIMESTAMP 		NOT NULL,
-	employe 				INTEGER 	NOT NULL,
-	v1 					NUMERIC(8, 4) 	NOT NULL,
-	v2 					NUMERIC(8, 4) 	NOT NULL,
-	v3 					NUMERIC(8, 4) 	NOT NULL,
+	date_debut 			TIMESTAMP 			NOT NULL, 
+	date_fin 			TIMESTAMP 			NOT NULL,
+	employe 			INTEGER 			NOT NULL,
+	v1 					NUMERIC(8, 4) 		NOT NULL,
+	v2 					NUMERIC(8, 4) 		NOT NULL,
+	v3 					NUMERIC(8, 4) 		NOT NULL,
 	
 	CONSTRAINT pk_calibration PRIMARY KEY(id),
 	CONSTRAINT cc_calibration_kilo_v CHECK(
@@ -182,7 +180,7 @@ CREATE TABLE calibration (
 --Kerian
 CREATE TABLE profileur_laser_calibration(
 	id SERIAL,
-	calibaration 			INTEGER		NOT NULL,
+	calibaration 		INTEGER		NOT NULL,
 	profileur 			INTEGER 	NOT NULL,
 	
 	CONSTRAINT pk_profileur_laser_calibration PRIMARY KEY(id)
@@ -193,7 +191,7 @@ CREATE TABLE type_panneau(
 	  id			SERIAL
 	, type			VARCHAR(64)		NOT NULL
 	
-	, CONSTRAINT 	pk_type_pan			PRIMARY KEY(id)
+	, CONSTRAINT 	pk_type_pan		PRIMARY KEY(id)
 );
 
 -- Ahmed
@@ -232,8 +230,8 @@ CREATE TABLE lumiere(
 	, forme			INTEGER				NOT NULL
 	, couleur 		INTEGER				NOT NULL
 	, mode			TYPE_MODE			NOT NULL
+	, dispositif	INTEGER				NOT NULL
 
-	
 	, CONSTRAINT 	pk_lum		PRIMARY KEY(id)
 );
 
@@ -248,14 +246,6 @@ CREATE TABLE dispositif_lumineux(
 	, CONSTRAINT	cc_dl_pourcentage 	CHECK(position <= 100.00)
 );
 
--- Ahmed
-CREATE TABLE dl_lumiere(
-	  id				SERIAL
-	, dispositif		INTEGER				NOT NULL
-	, lumiere			INTEGER		NOT NULL
-	
-	, CONSTRAINT 	pk_dl_lum			PRIMARY KEY(id)
-);
 
 -- Ahmed
 CREATE TABLE couleur(
@@ -329,19 +319,17 @@ ALTER TABLE panneau 	ADD CONSTRAINT fk_pan_panneau		FOREIGN KEY(type)		REFERENCE
 ALTER TABLE dispositif_particulier 	ADD CONSTRAINT fk_dis_par_panneau	FOREIGN KEY(type)	REFERENCES type_dispositif_particulier(id);
 
 -- Ahmed
-ALTER TABLE lumiere ADD CONSTRAINT fk_lum_forme		FOREIGN KEY(forme)		REFERENCES forme(id);
+ALTER TABLE lumiere ADD CONSTRAINT fk_lum_forme			FOREIGN KEY(forme)		REFERENCES forme(id);
 
 -- Ahmed
-ALTER TABLE lumiere ADD CONSTRAINT fk_lum_couleur	FOREIGN KEY(couleur) 	REFERENCES couleur(id);
+ALTER TABLE lumiere ADD CONSTRAINT fk_lum_couleur		FOREIGN KEY(couleur) 	REFERENCES couleur(id);
+
+-- Ahmed
+ALTER TABLE lumiere ADD CONSTRAINT fk_lum_dispositif	FOREIGN KEY(dispositif) 	REFERENCES dispositif(id);
+
 
 -- Ahmed
 -- ALTER TABLE dispositif_lumineux ADD CONSTRAINT fk_dl_tro	FOREIGN KEY(troncon) REFERENCES troncon(id);
-
--- Ahmed
-ALTER TABLE dl_lumiere ADD CONSTRAINT fk_dl_lum_dis		FOREIGN KEY(dispositif)	REFERENCES dispositif_lumineux(id);
-
--- Ahmed
-ALTER TABLE dl_lumiere ADD CONSTRAINT fk_dl_lum_lum		FOREIGN KEY(lumiere)	REFERENCES lumiere(id);
 	
 
 
