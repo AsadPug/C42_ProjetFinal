@@ -84,9 +84,9 @@ CALL insert_inter((point(45.569219, -73.566320)), 'asphalte');
 CALL insert_inter((point(45.560716, -73.573830)), 'asphalte');
 CALL insert_inter((point(45.559928, -73.571194)), 'asphalte');
 CALL insert_inter((point(45.559043, -73.568517)), 'asphalte');
-CALL insert_inter((point(45.558126, -73.565556)), 'asphalte');  
-CALL insert_inter((point(45.557232, -73.562788)), 'asphalte');
-CALL insert_inter((point(45.555906, -73.558941)), 'asphalte');
+CALL insert_inter((point(45.558126, -73.565556)), 'ciment');  
+CALL insert_inter((point(45.557232, -73.562788)), 'ciment');
+CALL insert_inter((point(45.555906, -73.558941)), 'ciment');
 CALL insert_inter((point(45.554648, -73.554602)), 'asphalte');
 CALL insert_inter((point(45.553693, -73.551639)), 'asphalte');
 
