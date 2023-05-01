@@ -16,31 +16,29 @@ INSERT INTO type_panneau(type)
 	
 -- Thomas
 INSERT INTO forme (forme)
-  VALUES("ronde"),
-        ("carrée"),
-        ("losange"),
-        ("flèche haut"),
-        ("flèche droite"),
-        ("flèche gauche"),
-        ("flèche bas"),
-        ("flèche haut-droite"),
-        ("flèche haut-gauche"),
-        ("flèche bas-droite"),
-        ("flèche bas-gauche"),
-        ("humain"),
-        ("main"),
-        ("vélo"),
-        ("barre verticale"),
-        ("barre horizontale");
+  VALUES('ronde'),
+        ('carrée'),
+        ('losange'),
+        ('flèche haut'),
+        ('flèche droite'),
+        ('flèche gauche'),
+        ('flèche bas'),
+        ('flèche haut-droite'),
+        ('flèche haut-gauche'),
+        ('flèche bas-droite'),
+        ('flèche bas-gauche'),
+        ('humain'),
+        ('main'),
+        ('vélo'),
+        ('barre verticale'),
+        ('barre horizontale');
         
 -- Thomas
 INSERT INTO couleur (hex, nom)
-  VALUES("FF0000", "rouge"),
-        ("FFFF00", "jaune"),
-        ("00FF00", "vert"),
-        ("FFFFFF", "blanc");
-        
-        -- insertion 
+  VALUES('FF0000', 'rouge'),
+        ('FFFF00', 'jaune'),
+        ('00FF00', 'vert'),
+        ('FFFFFF', 'blanc');
 
 -- Ahmed
 INSERT INTO departement(nom)
