@@ -1,7 +1,6 @@
 ALTER TABLE IF EXISTS employe DROP CONSTRAINT IF EXISTS fk_employe_poste;
 ALTER TABLE IF EXISTS employe DROP CONSTRAINT IF EXISTS fk_employe_departement;
-ALTER TABLE IF EXISTS profileur_laser_calibration DROP CONSTRAINT IF EXISTS fk_profileur_laser_calibration_calibration;
-ALTER TABLE IF EXISTS profileur_laser_calibration DROP CONSTRAINT IF EXISTS fk_profileur_laser_calibration_profileur_laser;
+ALTER TABLE IF EXISTS calibration DROP CONSTRAINT IF EXISTS fk_calibration_profileur;
 ALTER TABLE IF EXISTS calibration DROP CONSTRAINT IF EXISTS fk_calibration_employe;
 
 -- Suppression de contraintes
@@ -180,7 +179,7 @@ CREATE TABLE calibration (
 	v1 					NUMERIC(8, 4) 		NOT NULL,
 	v2 					NUMERIC(8, 4) 		NOT NULL,
 	v3 					NUMERIC(8, 4) 		NOT NULL,
-	
+	profileur  INTEGER           NOT NULL,
 	CONSTRAINT pk_calibration PRIMARY KEY(id),
 	CONSTRAINT cc_calibration_kilo_v CHECK(
 		v1 BETWEEN -1000 AND 1000 AND 
@@ -189,14 +188,6 @@ CREATE TABLE calibration (
 	)
 );
 
---Kerian
-CREATE TABLE profileur_laser_calibration(
-	id SERIAL,
-	calibration 		INTEGER		NOT NULL,
-	profileur 			INTEGER 	NOT NULL,
-	
-	CONSTRAINT pk_profileur_laser_calibration PRIMARY KEY(id)
-);
 
 -- Ahmed
 CREATE TABLE type_panneau(
@@ -287,15 +278,13 @@ ALTER TABLE employe
 	ADD CONSTRAINT fk_employe_departement FOREIGN KEY (departement) REFERENCES departement(id);
 
 
---Kerian 
-ALTER TABLE profileur_laser_calibration
-	ADD CONSTRAINT fk_profileur_laser_calibration_calibration FOREIGN KEY (calibration) REFERENCES calibration(id);
 --Kerian
-ALTER TABLE profileur_laser_calibration
-	ADD CONSTRAINT fk_profileur_laser_calibration_profileur_laser FOREIGN KEY (profileur) REFERENCES profileur_laser(id);
+ALTER TABLE calibration
+	ADD CONSTRAINT fk_calibration_profileur FOREIGN KEY (profileur) REFERENCES profileur_laser(id);
 --Kerian
 ALTER TABLE calibration
 	ADD CONSTRAINT fk_calibration_employe FOREIGN KEY (employe) REFERENCES employe(id);
+
 --Kerian
 --DROP INDEX IF EXISTS cherche_noserie;
 --CREATE INDEX cherche_noserie
