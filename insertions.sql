@@ -72,3 +72,23 @@ INSERT INTO employe(nas, nom, prenom, genre, date_embauche, salaire, poste, depa
 	VALUES (912345678, 'Garneau', 'Thomas', 'h', CURRENT_DATE, 25.0
 			, (SELECT id FROM poste WHERE nom = 'professionnel')
 			, (SELECT id FROM departement WHERE nom = 'ventes et représentation'));
+			
+-- Kerian
+INSERT INTO employe(nas, nom, prenom, genre, date_embauche, salaire, poste, departement)
+	VALUES (384210428, 'Devillers', 'Kerian', 'h', CURRENT_DATE, 30.5,
+			(SELECT id FROM poste WHERE nom = 'scientifique'),
+			(SELECT id FROM departement WHERE nom = 'recherche'));		
+			
+--Kerian
+CALL insert_inter((point(45.562579, -73.545979)), 'asphalte');
+CALL insert_inter((point(45.565404, -73.554454)), 'asphalte');
+CALL insert_inter((point(45.569219, -73.566320)), 'asphalte');
+CALL insert_inter((point(45.560716, -73.573830)), 'asphalte');
+CALL insert_inter((point(45.559928, -73.571194)), 'asphalte');
+CALL insert_inter((point(45.559043, -73.568517)), 'asphalte');
+CALL insert_inter((point(45.558126, -73.565556)), 'asphalte');  
+CALL insert_inter((point(45.557232, -73.562788)), 'asphalte');
+CALL insert_inter((point(45.555906, -73.558941)), 'asphalte');
+CALL insert_inter((point(45.554648, -73.554602)), 'asphalte');
+CALL insert_inter((point(45.553693, -73.551639)), 'asphalte');
+
