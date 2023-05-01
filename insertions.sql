@@ -26,9 +26,11 @@ VALUES('accès fauteuil roulant'),
       ('signal audio pour piéton');
 
 --Abigail
-INSERT INTO type_dispositif_particulier(type)
-VALUES('signal audio pour piéton');
-
+INSERT INTO vehicule(marque, modele, immatriculation)
+	VALUES ('Volkswagen', 'Jetta','145JHF'),
+	('Dodge', 'Charger','875YTA'),
+	('Ford', 'Focus', '932OTT');
+	
 --Kerian
 INSERT INTO type_panneau(type)
 	VALUES('arrêt'),
