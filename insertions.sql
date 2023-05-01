@@ -67,7 +67,7 @@ INSERT INTO employe(nas, nom, prenom, genre, date_embauche, salaire, poste, depa
 
 -- Thomas
 INSERT INTO employe(nas, nom, prenom, genre, date_embauche, salaire, poste, departement)
-	VALUES (912345678, 'Garneau', 'Thomas', 'h', CURRENT_DATE, 25.0
+	VALUES ('912345678', 'Garneau', 'Thomas', 'h', CURRENT_DATE, 25.0
 			, (SELECT id FROM poste WHERE nom = 'professionnel')
 			, (SELECT id FROM departement WHERE nom = 'ventes et représentation'));
 			
