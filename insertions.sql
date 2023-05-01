@@ -1,3 +1,25 @@
+DROP PROCEDURE IF EXISTS procedure_calibration;
+
+-- Thomas
+CREATE PROCEDURE procedure_calibration(
+	date_debut_calibration			TIMESTAMP, 
+	date_fin_calibration			TIMESTAMP,  
+	no_serie_profileur			profileur_laser.no_serie%TYPE,
+	nas_employe				employe.nas%TYPE,
+	valeur1					NUMERIC(8, 4), 
+	valeur2					NUMERIC(8, 4), 
+	valeur3					NUMERIC(8, 4)
+)
+LANGUAGE PLPGSQL
+AS $$
+BEGIN
+
+	INSERT INTO calibration(date_debut, date_fin, employe, profileur, v1, v2, v3)
+		VALUES (date_debut_calibration, date_fin_calibration, 
+				(SELECT id FROM employe WHERE nas = nas_employe), 
+				(SELECT id FROM profileur_laser WHERE no_serie = no_serie_profileur), valeur1, valeur2, valeur3);
+END;$$;	
+
 --Abigail
 INSERT INTO type_dispositif_particulier(type)
 VALUES('accès fauteuil roulant'),
