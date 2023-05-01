@@ -41,6 +41,10 @@ DROP TABLE IF EXISTS vehicule, calibration, profileur_laser, profileur_laser_cal
 DROP TYPE IF EXISTS genre;
 DROP TYPE IF EXISTS pavage;
 
+--Suppression sequences
+DROP SEQUENCE IF EXISTS identifiant_intersection;
+
+
 CREATE TYPE genre AS ENUM('f', 'h', 'x');
 CREATE TYPE pavage AS ENUM('asphalte', 'ciment', 'pavé brique', 'pavé pierre', 'non pavé', 'indéterminé');
 
@@ -49,6 +53,9 @@ CREATE TYPE TYPE_MODE 		AS ENUM ('solide', 'clignotant', 'contôlé', 'intellige
 
 -- Ahmed
 CREATE TYPE TYPE_ORIENTAION AS ENUM ('horizontale', 'verticale', 'autre');
+
+--Kerian
+CREATE SEQUENCE identifiant_intersection START WITH 0000001 INCREMENT BY 1;
 
 --Abigail 
 CREATE TABLE inspection(
