@@ -34,10 +34,10 @@ DROP TABLE IF EXISTS dispositif_lumineux;
 
 DROP TYPE IF EXISTS TYPE_MODE;
 DROP TYPE IF EXISTS TYPE_ORIENTAION;
-DROP TYPE IF EXISTS genre;
-DROP TYPE IF EXISTS pavage;
+DROP TYPE IF EXISTS genre CASCADE;
+DROP TYPE IF EXISTS pavage CASCADE;
 
-DROP TABLE IF EXISTS vehicule, calibration, profileur_laser, profileur_laser_calibration, employe, poste, departement, troncon, intersection, inspection, troncon_inspection; 
+DROP TABLE IF EXISTS vehicule, calibration, profileur_laser, employe, poste, departement, troncon, intersection, inspection, troncon_inspection; 
 
 --Suppression sequences
 DROP SEQUENCE IF EXISTS identifiant_intersection;
