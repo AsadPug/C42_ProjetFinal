@@ -1,4 +1,6 @@
+DROP PROCEDURE IF EXISTS insert_inter;
 DROP PROCEDURE IF EXISTS procedure_calibration;
+DROP PROCEDURE IF EXISTS insertion_troncon;
 
 -- Thomas
 CREATE PROCEDURE procedure_calibration(
@@ -20,6 +22,18 @@ BEGIN
 				(SELECT id FROM profileur_laser WHERE no_serie = no_serie_profileur), valeur1, valeur2, valeur3);
 END;$$;	
 
+--Kerian
+CREATE OR REPLACE PROCEDURE insert_inter(
+	coordonees_inter intersection.coordonees%TYPE,
+	pavage_inter intersection.pavage%TYPE
+)
+LANGUAGE SQL
+AS $$
+	INSERT INTO intersection(identifiant, coordonees, pavage)
+		VALUES (NEXTVAL('identifiant_intersection'), coordonees_inter, pavage_inter);
+$$;
+
+
 -- Ahmed
 CREATE PROCEDURE insertion_troncon(
 	  nomRue			VARCHAR(32)
@@ -36,8 +50,8 @@ BEGIN
 
 	INSERT INTO troncon(nom, intersection_debut, intersection_fin, longueur, limite_vitesse, nbVoies, pavage)
 		VALUES ( nomRue
-			  , (SELECT id FROM intersection WHERE coordonees = inter_debut)
-			  , (SELECT id FROM intersection WHERE coordonees = inter_fin)
+			  , (SELECT id FROM intersection WHERE coordonees[0] = inter_debut[0])
+			  , (SELECT id FROM intersection WHERE coordonees[0] =  inter_fin[0])
 			  , long, vitesse, nbVoies, type_pavage);
 END;$$;	
 					  
@@ -152,6 +166,7 @@ CALL procedure_calibration('2015-03-25 20:58:47', '2015-03-28 14:39:09', '759273
 CALL procedure_calibration('2018-05-02 18:19:35', '2018-05-06 18:07:17', '7592736401847263', '912345678', 682.7489, -926.7641, 520.6958);
 CALL procedure_calibration('2019-02-12 02:01:03', '2019-02-18 10:23:26', '7592736401847263', '912345678', 942.7362, -817.2531, -613.7843);
 CALL procedure_calibration('2021-09-18 07:55:41-05', '2021-09-24 16:56:33-04', '7592736401847263', '912345678', 172.8963, 172.8963, 172.8963);
+
 
 -- Ahmed
 CALL insertion_troncon( 'Rue Viau', 		point(45.562579, -73.545979), point(45.565404, -73.554454), 1500, 50, 2, 'asphalte');
