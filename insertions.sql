@@ -20,6 +20,28 @@ BEGIN
 				(SELECT id FROM profileur_laser WHERE no_serie = no_serie_profileur), valeur1, valeur2, valeur3);
 END;$$;	
 
+-- Ahmed
+CREATE PROCEDURE insertion_troncon(
+	  nomRue			VARCHAR(32)
+	, inter_debut		POINT	
+	, inter_fin			POINT	
+	, long				DECIMAL(7, 1)
+	, vitesse			INTEGER	
+	, nbVoies			INTEGER	
+	, type_pavage		pavage
+)
+LANGUAGE PLPGSQL
+AS $$
+BEGIN
+
+	INSERT INTO troncon(nom, intersection_debut, intersection_fin, longueur, limite_vitesse, nbVoies, pavage)
+		VALUES ( nomRue
+			  , (SELECT id FROM intersection WHERE coordonees = inter_debut)
+			  , (SELECT id FROM intersection WHERE coordonees = inter_fin)
+			  , long, vitesse, nbVoies, type_pavage);
+END;$$;	
+					  
+
 --Abigail
 INSERT INTO type_dispositif_particulier(type)
 VALUES('accès fauteuil roulant'),
@@ -130,3 +152,27 @@ CALL procedure_calibration('2015-03-25 20:58:47', '2015-03-28 14:39:09', '759273
 CALL procedure_calibration('2018-05-02 18:19:35', '2018-05-06 18:07:17', '7592736401847263', '912345678', 682.7489, -926.7641, 520.6958);
 CALL procedure_calibration('2019-02-12 02:01:03', '2019-02-18 10:23:26', '7592736401847263', '912345678', 942.7362, -817.2531, -613.7843);
 CALL procedure_calibration('2021-09-18 07:55:41-05', '2021-09-24 16:56:33-04', '7592736401847263', '912345678', 172.8963, 172.8963, 172.8963);
+
+-- Ahmed
+CALL insertion_troncon( 'Rue Viau', 		point(45.562579, -73.545979), point(45.565404, -73.554454), 1500, 50, 2, 'asphalte');
+CALL insertion_troncon( 'Rue Viau', 		point(45.565404, -73.554454), point(45.562579, -73.545979), 1500, 50, 2, 'asphalte');
+CALL insertion_troncon( 'Rue Viau', 		point(45.565404, -73.554454), point(45.569219, -73.566320), 3250, 50, 2, 'asphalte');
+CALL insertion_troncon( 'Rue Viau', 		point(45.569219, -73.566320), point(45.565404, -73.554454), 3250, 50, 2, 'asphalte');
+CALL insertion_troncon( 'Boul. Rosemont', 	point(45.569219, -73.566320), point(45.560716, -73.573830), 3500, 50, 2, 'asphalte');
+CALL insertion_troncon( 'Boul. Rosemont', 	point(45.560716, -73.573830), point(45.569219, -73.566320), 3500, 50, 2, 'asphalte');
+CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.560716, -73.573830), point(45.559928, -73.571194), 625,  30, 1, 'asphalte');
+CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.559928, -73.571194), point(45.560716, -73.573830), 625,  30, 1, 'asphalte');
+CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.559928, -73.571194), point(45.559043, -73.568517), 650,  30, 1, 'asphalte');
+CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.559043, -73.568517), point(45.559928, -73.571194), 650,  30, 1, 'asphalte');
+CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.559043, -73.568517), point(45.558126, -73.565556), 630,  30, 1, 'asphalte');
+CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.558126, -73.565556), point(45.559043, -73.568517), 630,  30, 1, 'asphalte');
+CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.558126, -73.565556), point(45.557232, -73.562788), 670,  30, 1, 'ciment');
+CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.557232, -73.562788), point(45.558126, -73.565556), 670,  30, 1, 'ciment');
+CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.557232, -73.562788), point(45.555906, -73.558941), 900,  30, 1, 'ciment');
+CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.555906, -73.558941), point(45.557232, -73.562788), 900,  30, 1, 'ciment');
+CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.555906, -73.558941), point(45.554648, -73.554602), 850,  30, 1, 'ciment');
+CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.554648, -73.554602), point(45.555906, -73.558941), 850,  30, 1, 'ciment');
+CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.554648, -73.554602), point(45.553693, -73.551639), 620,  30, 1, 'asphalte');
+CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.553693, -73.551639), point(45.554648, -73.554602), 620,  30, 1, 'asphalte');
+CALL insertion_troncon( 'Ave. Pierre-de Coubertin', point(45.553693, -73.551639), point(45.562579, -73.545979), 625,  50, 3, 'asphalte');
+CALL insertion_troncon( 'Ave. Pierre-de Coubertin', point(45.562579, -73.545979), point(45.553693, -73.551639), 625,  50, 3, 'asphalte');
