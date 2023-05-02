@@ -41,6 +41,7 @@ DROP TABLE IF EXISTS vehicule, calibration, profileur_laser, employe, poste, dep
 
 --Suppression sequences
 DROP SEQUENCE IF EXISTS identifiant_intersection;
+DROP SEQUENCE IF EXISTS numero_immatriculation;
 
 -- Thomas
 CREATE TYPE genre AS ENUM('f', 'h', 'x');
@@ -54,6 +55,9 @@ CREATE TYPE TYPE_ORIENTAION AS ENUM ('horizontale', 'verticale', 'autre');
 
 --Kerian
 CREATE SEQUENCE identifiant_intersection START WITH 1000000 INCREMENT BY 1;
+
+--Abigail 
+CREATE SEQUENCE numero_immatriculation START WITH 111 INCREMENT BY 1;
 
 --Abigail 
 CREATE TABLE inspection(

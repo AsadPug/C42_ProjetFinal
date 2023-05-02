@@ -63,9 +63,9 @@ VALUES('accès fauteuil roulant'),
 
 --Abigail
 INSERT INTO vehicule(marque, modele, immatriculation)
-	VALUES ('Volkswagen', 'Jetta','145JHF'),
-	('Dodge', 'Charger','875YTA'),
-	('Ford', 'Focus', '932OTT');
+	VALUES ('Volkswagen', 'Jetta','AAA' || NEXTVAL('numero_immatriculation')),
+	('Dodge', 'Charger','AAA' || NEXTVAL('numero_immatriculation')),
+	('Ford', 'Focus', 'AAA' || NEXTVAL('numero_immatriculation'));
 	
 --Kerian
 INSERT INTO type_panneau(type)
