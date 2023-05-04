@@ -1,7 +1,7 @@
 DROP PROCEDURE IF EXISTS insert_inter;
 DROP PROCEDURE IF EXISTS procedure_calibration;
 DROP PROCEDURE IF EXISTS insertion_troncon;
-
+DROP FUNCTION IF EXISTS employe_random
 
 --Kerian
 CREATE OR REPLACE PROCEDURE insert_inter(
