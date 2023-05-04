@@ -1,6 +1,7 @@
 DROP PROCEDURE IF EXISTS insert_inter;
 DROP PROCEDURE IF EXISTS procedure_calibration;
 DROP PROCEDURE IF EXISTS insertion_troncon;
+DROP FUNCTION IF EXISTS employe_random
 
 -- Thomas
 CREATE PROCEDURE procedure_calibration(
@@ -33,6 +34,12 @@ AS $$
 		VALUES (NEXTVAL('identifiant_intersection'), coordonees_inter, pavage_inter);
 $$;
 
+--Kerian
+CREATE OR REPLACE FUNCTION employe_random() RETURNS INT
+	LANGUAGE SQL
+	AS $$
+		SELECT id FROM employe order by random() limit 1;
+	$$;
 
 -- Ahmed
 CREATE PROCEDURE insertion_troncon(
