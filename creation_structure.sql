@@ -42,6 +42,7 @@ DROP TABLE IF EXISTS vehicule, calibration, profileur_laser, employe, poste, dep
 --Suppression sequences
 DROP SEQUENCE IF EXISTS identifiant_intersection;
 DROP SEQUENCE IF EXISTS numero_immatriculation;
+DROP SEQUENCE IF EXISTS numero_serie;
 
 -- Thomas
 CREATE TYPE genre AS ENUM('f', 'h', 'x');
@@ -58,6 +59,9 @@ CREATE SEQUENCE identifiant_intersection START WITH 1000000 INCREMENT BY 1;
 
 --Abigail 
 CREATE SEQUENCE numero_immatriculation START WITH 111 INCREMENT BY 1;
+
+-- Thomas
+CREATE SEQUENCE numero_serie START WITH 1000000000000000 INCREMENT BY 1;
 
 --Abigail 
 CREATE TABLE inspection(
@@ -144,12 +148,11 @@ CREATE TABLE troncon(
 --Thomas
 CREATE TABLE intersection(
 	id					SERIAL,
-	identifiant				INTEGER		NOT NULL,
+	identifiant				NUMERIC(7,0)	NOT NULL,
 	coordonees				POINT 		NOT NULL,
 	pavage					pavage		NOT NULL,
 	
-	CONSTRAINT pk_intersection_id PRIMARY KEY(id),
-	CONSTRAINT cc_intersection_identifiant CHECK (identifiant BETWEEN 1000000 AND 9999999)
+	CONSTRAINT pk_intersection_id PRIMARY KEY(id)
 );
 
 --Kerian
