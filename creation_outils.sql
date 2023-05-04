@@ -1,7 +1,7 @@
 DROP PROCEDURE IF EXISTS insert_inter;
 DROP PROCEDURE IF EXISTS procedure_calibration;
 DROP PROCEDURE IF EXISTS insertion_troncon;
-DROP FUNCTION IF EXISTS employe_random, profileur_random, vehicule_random;
+DROP FUNCTION IF EXISTS employe_random, profileur_random, vehicule_random, troncon_random;
 
 --Kerian
 CREATE OR REPLACE PROCEDURE insert_inter(
@@ -33,6 +33,13 @@ CREATE OR REPLACE FUNCTION vehicule_random() RETURNS INT
 LANGUAGE SQL
 AS $$
 	SELECT id FROM vehicule order by random() limit 1;
+$$;
+
+--Kerian
+CREATE OR REPLACE FUNCTION troncon_random() RETURNS INT
+LANGUAGE SQL
+AS $$
+	SELECT id FROM troncon order by random() LIMIT 1;
 $$;
 
 -- Thomas
