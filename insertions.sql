@@ -23,24 +23,6 @@ BEGIN
 				(SELECT id FROM profileur_laser WHERE no_serie = no_serie_profileur), valeur1, valeur2, valeur3);
 END;$$;	
 
---Kerian
-CREATE OR REPLACE PROCEDURE insert_inter(
-	coordonees_inter intersection.coordonees%TYPE,
-	pavage_inter intersection.pavage%TYPE
-)
-LANGUAGE SQL
-AS $$
-	INSERT INTO intersection(identifiant, coordonees, pavage)
-		VALUES (NEXTVAL('identifiant_intersection'), coordonees_inter, pavage_inter);
-$$;
-
---Kerian
-CREATE OR REPLACE FUNCTION employe_random() RETURNS INT
-	LANGUAGE SQL
-	AS $$
-		SELECT id FROM employe order by random() limit 1;
-	$$;
-
 -- Ahmed
 CREATE PROCEDURE insertion_troncon(
 	  nomRue			VARCHAR(32)
