@@ -160,7 +160,8 @@ CREATE TABLE vehicule(
 	date_acquisition 	DATE,
 	immatriculation 	CHAR(6) 		NOT NULL,
 	
-	CONSTRAINT pk_vehicule PRIMARY KEY(id)
+	CONSTRAINT pk_vehicule PRIMARY KEY(id),
+	CONSTRAINT uc_vehicule_immatriculation UNIQUE(immatriculation)
 );
 --Kerian
 CREATE TABLE profileur_laser(
@@ -170,7 +171,8 @@ CREATE TABLE profileur_laser(
 	date_fabrication 			DATE,
 	date_acquisition 			DATE,
 	
-	CONSTRAINT pk_profileur_laser PRIMARY KEY(id)
+	CONSTRAINT pk_profileur_laser PRIMARY KEY(id),
+	CONSTRAINT uc_profileur_laser_no_serie UNIQUE(no_serie)
 );
 
 --Kerian
@@ -287,11 +289,6 @@ ALTER TABLE calibration
 --Kerian
 ALTER TABLE calibration
 	ADD CONSTRAINT fk_calibration_employe FOREIGN KEY (employe) REFERENCES employe(id);
-
---Kerian
---DROP INDEX IF EXISTS cherche_noserie;
---CREATE INDEX cherche_noserie
---	ON calibration(no_serie);
 
 --Abigail	
 ALTER TABLE inspection
