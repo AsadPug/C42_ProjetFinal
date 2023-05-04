@@ -42,6 +42,22 @@ AS $$
 	SELECT id FROM troncon order by random() LIMIT 1;
 $$;
 
+--Kerian
+CREATE OR REPLACE FUNCTION update_kilo_fin()
+RETURNS TRIGGER AS $$
+	BEGIN
+		UPDATE inspection
+		SET kilo_fin = kilo_fin + (SELECT longueur FROM troncon WHERE id = new.troncon)
+		WHERE id = new.inspection;
+		RETURN NEW;
+	END;
+$$
+LANGUAGE PLPGSQL;
+
+CREATE OR REPLACE TRIGGER update_kilo_fin AFTER INSERT OR UPDATE
+	ON troncon_inspection
+	FOR EACH ROW EXECUTE FUNCTION update_kilo_fin();
+
 -- Thomas
 CREATE PROCEDURE procedure_calibration(
 	date_debut_calibration			TIMESTAMP, 
