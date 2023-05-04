@@ -1,7 +1,11 @@
 DROP PROCEDURE IF EXISTS insert_inter;
 DROP PROCEDURE IF EXISTS procedure_calibration;
+DROP PROCEDURE IF EXISTS procedure_dispositif_lumineux;
 DROP PROCEDURE IF EXISTS insertion_troncon;
 DROP FUNCTION IF EXISTS employe_random, profileur_random, vehicule_random, troncon_random;
+DROP FUNCTION IF EXISTS random_forme_lumiere;
+DROP FUNCTION IF EXISTS random_couleur_lumiere;
+DROP FUNCTION IF EXISTS random_mode_lumiere;
 
 --Kerian
 CREATE OR REPLACE PROCEDURE insert_inter(
@@ -76,7 +80,67 @@ BEGIN
 		VALUES (date_debut_calibration, date_fin_calibration, 
 				(SELECT id FROM employe WHERE nas = nas_employe), 
 				(SELECT id FROM profileur_laser WHERE no_serie = no_serie_profileur), valeur1, valeur2, valeur3);
-END;$$;	
+END;
+$$;	
+
+-- Thomas
+CREATE FUNCTION random_forme_lumiere()
+RETURNS INTEGER
+LANGUAGE PLPGSQL
+AS
+$$
+BEGIN
+	RETURN (SELECT id FROM forme ORDER BY RANDOM() LIMIT 1);
+END;
+$$;
+	
+-- Thomas
+CREATE FUNCTION random_couleur_lumiere()
+RETURNS INTEGER
+LANGUAGE PLPGSQL
+AS
+$$
+BEGIN
+	RETURN (SELECT id FROM couleur ORDER BY RANDOM() LIMIT 1);
+END;
+$$;
+
+-- Thomas
+CREATE FUNCTION random_mode_lumiere()
+RETURNS TYPE_MODE
+LANGUAGE PLPGSQL
+AS
+$$
+BEGIN
+
+	RETURN ('{solide,clignotant,contrôlé,intelligente}'::text[])[ceil(random()*4)];
+END;
+$$;
+
+-- Thomas
+CREATE PROCEDURE procedure_dispositif_lumineux(
+	_position				DECIMAL(5,2), 
+	_troncon				INTEGER,  
+	_orientation			TEXT
+)
+LANGUAGE PLPGSQL
+AS $$
+DECLARE 
+	random_num INTEGER;
+BEGIN
+
+	random_num = FLOOR(RANDOM()*(5 - 1 + 1)) + 1;
+
+	INSERT INTO dispositif_lumineux(position, troncon, orientation)
+		VALUES (_position, (SELECT id FROM troncon WHERE id = _troncon), _orientation);
+		
+	FOR x IN 1..random_num LOOP
+		INSERT INTO lumiere(forme, couleur, mode, dispositif)
+			VALUES(random_forme_lumiere(), random_couleur_lumiere(), random_mode_lumiere(), (SELECT id FROM dispositif_lumineux ORDER BY id DESC LIMIT 1));
+  	END LOOP;
+END;
+$$;
+
 
 -- Ahmed
 CREATE PROCEDURE insertion_troncon(
