@@ -14,7 +14,13 @@ AS $$
 		VALUES (NEXTVAL('identifiant_intersection'), coordonees_inter, pavage_inter);
 $$;
 
-
+--Kerian
+CREATE OR REPLACE FUNCTION employe_random() RETURNS INT
+LANGUAGE SQL
+AS $$
+	SELECT id FROM employe order by random() limit 1;
+$$;
+	
 -- Thomas
 CREATE PROCEDURE procedure_calibration(
 	date_debut_calibration			TIMESTAMP, 
