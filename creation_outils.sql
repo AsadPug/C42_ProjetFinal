@@ -66,7 +66,7 @@ LANGUAGE PLPGSQL
 AS $$
 	BEGIN
 		INSERT INTO troncon_inspection(troncon, inspection)
-			VALUES(troncon_random(), id_inscpection)
+			VALUES(troncon_random(), id_inscpection);
 	END;
 $$;	
 
