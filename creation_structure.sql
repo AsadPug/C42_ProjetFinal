@@ -66,8 +66,8 @@ CREATE SEQUENCE numero_serie START WITH 1000000000000000 INCREMENT BY 1;
 --Abigail 
 CREATE TABLE inspection(
 	id						SERIAL,
-	date_debut 				DATE		NOT NULL,
-	date_fin				DATE		NOT NULL,
+	date_debut 				TIMESTAMP	NOT NULL,
+	date_fin				TIMESTAMP	NOT NULL,
 	chemin_fichier 			VARCHAR(1024)NOT NULL,
 	conducteur				INTEGER 	NOT NULL,
 	vehicule				INTEGER		NOT NULL,
