@@ -8,6 +8,8 @@ DROP FUNCTION IF EXISTS random_couleur_lumiere;
 DROP FUNCTION IF EXISTS random_mode_lumiere;
 DROP FUNCTION IF EXISTS position_random;
 DROP FUNCTION IF EXISTS id_random(text);
+DROP FUNCTION IF EXISTS random_timestamp();
+DROP FUNCTION IF EXISTS random_end_timestamp(TIMESTAMP);
 DROP PROCEDURE IF EXISTS insertion_panneaux(integer);
 DROP PROCEDURE IF EXISTS insertion_dispositifs_particuliers(integer);
 
@@ -62,6 +64,7 @@ RETURNS TRIGGER AS $$
 $$
 LANGUAGE PLPGSQL;
 
+--Kerian
 CREATE OR REPLACE TRIGGER update_kilo_fin AFTER INSERT OR UPDATE
 	ON troncon_inspection
 	FOR EACH ROW EXECUTE FUNCTION update_kilo_fin();
@@ -145,6 +148,30 @@ BEGIN
 END;
 $$;
 
+
+-- Abigail
+CREATE OR REPLACE FUNCTION random_timestamp()
+RETURNS TIMESTAMP
+LANGUAGE PLPGSQL
+AS $$
+BEGIN
+  RETURN TIMESTAMP '2000-01-01 00:00:00' +
+       random() * (TIMESTAMP '2023-04-05 00:00:00' -
+                   TIMESTAMP '2000-01-01 00:00:00');
+END;
+$$;
+
+-- Abigail
+CREATE OR REPLACE FUNCTION random_end_timestamp(initial_timestamp TIMESTAMP)
+RETURNS TIMESTAMP
+LANGUAGE PLPGSQL
+AS $$
+BEGIN
+  RETURN initial_timestamp +
+       random() * (TIMESTAMP '2023-05-05 00:00:00' -
+                   TIMESTAMP '2023-04-05 00:00:00' );
+END;
+$$;
 
 -- Ahmed
 CREATE PROCEDURE insertion_troncon(
