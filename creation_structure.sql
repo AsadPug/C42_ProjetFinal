@@ -63,6 +63,9 @@ CREATE SEQUENCE numero_immatriculation START WITH 111 INCREMENT BY 1;
 -- Thomas
 CREATE SEQUENCE numero_serie START WITH 1000000000000000 INCREMENT BY 1;
 
+-- Ahmed
+CREATE SEQUENCE numero_nom_fichier START WITH 20 INCREMENT BY 1;
+
 --Abigail 
 CREATE TABLE inspection(
 	id						SERIAL,
