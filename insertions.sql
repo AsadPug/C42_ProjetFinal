@@ -1,7 +1,3 @@
-DROP PROCEDURE IF EXISTS insert_inter;
-DROP PROCEDURE IF EXISTS insertion_troncon;
-DROP FUNCTION IF EXISTS employe_random
-
 -- Ahmed
 CREATE PROCEDURE insertion_troncon(
 	  nomRue			VARCHAR(32)
