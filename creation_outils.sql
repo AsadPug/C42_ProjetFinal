@@ -61,6 +61,15 @@ AS $$
 	SELECT id FROM troncon order by random() LIMIT 1;
 $$;
 
+CREATE PROCEDURE insertion_troncon_inspection(id_inscpection INTEGER)
+LANGUAGE PLPGSQL
+AS $$
+	BEGIN
+		INSERT INTO troncon_inspection(troncon, inspection)
+			VALUES(troncon_random(), id_inscpection)
+	END;
+$$;	
+
 --Kerian
 CREATE OR REPLACE FUNCTION update_kilo_fin()
 RETURNS TRIGGER AS $$
@@ -73,7 +82,6 @@ RETURNS TRIGGER AS $$
 $$
 LANGUAGE PLPGSQL;
 
---Kerian
 CREATE OR REPLACE TRIGGER update_kilo_fin AFTER INSERT OR UPDATE
 	ON troncon_inspection
 	FOR EACH ROW EXECUTE FUNCTION update_kilo_fin();
