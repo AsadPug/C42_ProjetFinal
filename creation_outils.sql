@@ -128,7 +128,7 @@ $$;
 CREATE OR REPLACE PROCEDURE procedure_dispositif_lumineux(
 	_position				DECIMAL(5,2), 
 	_troncon				INTEGER,  
-	_orientation			TEXT
+	_orientation				dispositif_lumineux.orientation%TYPE
 )
 LANGUAGE PLPGSQL
 AS $$
