@@ -161,6 +161,12 @@ CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.554648, -73.554602), point(45.
 CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.553693, -73.551639), point(45.554648, -73.554602), 620,  30, 1, 'asphalte');
 CALL insertion_troncon( 'Ave. Pierre-de Coubertin', point(45.553693, -73.551639), point(45.562579, -73.545979), 625,  50, 3, 'asphalte');
 CALL insertion_troncon( 'Ave. Pierre-de Coubertin', point(45.562579, -73.545979), point(45.553693, -73.551639), 625,  50, 3, 'asphalte');
+CALL insertion_troncon( 'Rue Sherbrooke', 	point(45.554648, -73.554602), point(45.565404, -73.554454), 1200,  50, 3, 'asphalte');
+
+
+-- Ahmed
+CALL insertion_panneaux(100);
+CALL insertion_dispositifs_particuliers(100);
 
 -- Thomas
 CALL procedure_dispositif_lumineux(100.00, 1, 'horizontale');
