@@ -1,25 +1,3 @@
--- Ahmed
-CREATE PROCEDURE insertion_troncon(
-	  nomRue			VARCHAR(32)
-	, inter_debut		POINT	
-	, inter_fin			POINT	
-	, long				DECIMAL(7, 1)
-	, vitesse			INTEGER	
-	, nbVoies			INTEGER	
-	, type_pavage		pavage
-)
-LANGUAGE PLPGSQL
-AS $$
-BEGIN
-
-	INSERT INTO troncon(nom, intersection_debut, intersection_fin, longueur, limite_vitesse, nbVoies, pavage)
-		VALUES ( nomRue
-			  , (SELECT id FROM intersection WHERE coordonees[0] = inter_debut[0])
-			  , (SELECT id FROM intersection WHERE coordonees[0] =  inter_fin[0])
-			  , long, vitesse, nbVoies, type_pavage);
-END;$$;	
-					  
-
 --Abigail
 INSERT INTO type_dispositif_particulier(type)
 VALUES('accès fauteuil roulant'),
