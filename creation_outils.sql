@@ -67,7 +67,7 @@ CREATE OR REPLACE TRIGGER update_kilo_fin AFTER INSERT OR UPDATE
 	FOR EACH ROW EXECUTE FUNCTION update_kilo_fin();
 
 -- Thomas
-CREATE PROCEDURE procedure_calibration(
+CREATE OR REPLACE PROCEDURE procedure_calibration(
 	date_debut_calibration			TIMESTAMP, 
 	date_fin_calibration			TIMESTAMP,  
 	no_serie_profileur			profileur_laser.no_serie%TYPE,
@@ -88,7 +88,7 @@ END;
 $$;	
 
 -- Thomas
-CREATE FUNCTION random_forme_lumiere()
+CREATE OR REPLACE FUNCTION random_forme_lumiere()
 RETURNS INTEGER
 LANGUAGE PLPGSQL
 AS
@@ -99,7 +99,7 @@ END;
 $$;
 	
 -- Thomas
-CREATE FUNCTION random_couleur_lumiere()
+CREATE OR REPLACE FUNCTION random_couleur_lumiere()
 RETURNS INTEGER
 LANGUAGE PLPGSQL
 AS
@@ -110,7 +110,7 @@ END;
 $$;
 
 -- Thomas
-CREATE FUNCTION random_mode_lumiere()
+CREATE OR REPLACE FUNCTION random_mode_lumiere()
 RETURNS TYPE_MODE
 LANGUAGE PLPGSQL
 AS
@@ -122,7 +122,7 @@ END;
 $$;
 
 -- Thomas
-CREATE PROCEDURE procedure_dispositif_lumineux(
+CREATE OR REPLACE PROCEDURE procedure_dispositif_lumineux(
 	_position				DECIMAL(5,2), 
 	_troncon				INTEGER,  
 	_orientation			TEXT
