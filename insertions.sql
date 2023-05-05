@@ -139,28 +139,29 @@ CALL procedure_calibration('2021-09-18 07:55:41', '2021-09-24 16:56:33', '100000
 
 
 -- Ahmed
-CALL insertion_troncon( 'Rue Viau', 		point(45.562579, -73.545979), point(45.565404, -73.554454), 1500, 50, 2, 'asphalte');
-CALL insertion_troncon( 'Rue Viau', 		point(45.565404, -73.554454), point(45.562579, -73.545979), 1500, 50, 2, 'asphalte');
-CALL insertion_troncon( 'Rue Viau', 		point(45.565404, -73.554454), point(45.569219, -73.566320), 3250, 50, 2, 'asphalte');
-CALL insertion_troncon( 'Rue Viau', 		point(45.569219, -73.566320), point(45.565404, -73.554454), 3250, 50, 2, 'asphalte');
-CALL insertion_troncon( 'Boul. Rosemont', 	point(45.569219, -73.566320), point(45.560716, -73.573830), 3500, 50, 2, 'asphalte');
-CALL insertion_troncon( 'Boul. Rosemont', 	point(45.560716, -73.573830), point(45.569219, -73.566320), 3500, 50, 2, 'asphalte');
-CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.560716, -73.573830), point(45.559928, -73.571194), 625,  30, 1, 'asphalte');
-CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.559928, -73.571194), point(45.560716, -73.573830), 625,  30, 1, 'asphalte');
-CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.559928, -73.571194), point(45.559043, -73.568517), 650,  30, 1, 'asphalte');
-CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.559043, -73.568517), point(45.559928, -73.571194), 650,  30, 1, 'asphalte');
-CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.559043, -73.568517), point(45.558126, -73.565556), 630,  30, 1, 'asphalte');
-CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.558126, -73.565556), point(45.559043, -73.568517), 630,  30, 1, 'asphalte');
-CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.558126, -73.565556), point(45.557232, -73.562788), 670,  30, 1, 'ciment');
-CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.557232, -73.562788), point(45.558126, -73.565556), 670,  30, 1, 'ciment');
-CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.557232, -73.562788), point(45.555906, -73.558941), 900,  30, 1, 'ciment');
-CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.555906, -73.558941), point(45.557232, -73.562788), 900,  30, 1, 'ciment');
-CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.555906, -73.558941), point(45.554648, -73.554602), 850,  30, 1, 'ciment');
-CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.554648, -73.554602), point(45.555906, -73.558941), 850,  30, 1, 'ciment');
-CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.554648, -73.554602), point(45.553693, -73.551639), 620,  30, 1, 'asphalte');
-CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.553693, -73.551639), point(45.554648, -73.554602), 620,  30, 1, 'asphalte');
-CALL insertion_troncon( 'Ave. Pierre-de Coubertin', point(45.553693, -73.551639), point(45.562579, -73.545979), 625,  50, 3, 'asphalte');
-CALL insertion_troncon( 'Ave. Pierre-de Coubertin', point(45.562579, -73.545979), point(45.553693, -73.551639), 625,  50, 3, 'asphalte');
+CALL insertion_troncon( 'Rue Viau', 		point(45.562579, -73.545979), point(45.565404, -73.554454), 750, 50, 2, 'asphalte');
+CALL insertion_troncon( 'Rue Viau', 		point(45.565404, -73.554454), point(45.562579, -73.545979), 750, 50, 2, 'asphalte');
+CALL insertion_troncon( 'Rue Viau', 		point(45.565404, -73.554454), point(45.569219, -73.566320), 1000, 50, 2, 'asphalte');
+CALL insertion_troncon( 'Rue Viau', 		point(45.569219, -73.566320), point(45.565404, -73.554454), 1000, 50, 2, 'asphalte');
+CALL insertion_troncon( 'Boul. Rosemont', 	point(45.569219, -73.566320), point(45.560716, -73.573830), 1100, 50, 2, 'asphalte');
+CALL insertion_troncon( 'Boul. Rosemont', 	point(45.560716, -73.573830), point(45.569219, -73.566320), 1100, 50, 2, 'asphalte');
+CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.560716, -73.573830), point(45.559928, -73.571194), 230,  30, 1, 'asphalte');
+CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.559928, -73.571194), point(45.560716, -73.573830), 230,  30, 1, 'asphalte');
+CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.559928, -73.571194), point(45.559043, -73.568517), 250,  30, 1, 'asphalte');
+CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.559043, -73.568517), point(45.559928, -73.571194), 250,  30, 1, 'asphalte');
+CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.559043, -73.568517), point(45.558126, -73.565556), 250,  30, 1, 'asphalte');
+CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.558126, -73.565556), point(45.559043, -73.568517), 250,  30, 1, 'asphalte');
+CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.558126, -73.565556), point(45.557232, -73.562788), 240,  30, 1, 'ciment');
+CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.557232, -73.562788), point(45.558126, -73.565556), 240,  30, 1, 'ciment');
+CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.557232, -73.562788), point(45.555906, -73.558941), 350,  30, 1, 'ciment');
+CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.555906, -73.558941), point(45.557232, -73.562788), 350,  30, 1, 'ciment');
+CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.555906, -73.558941), point(45.554648, -73.554602), 350,  30, 1, 'ciment');
+CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.554648, -73.554602), point(45.555906, -73.558941), 350,  30, 1, 'ciment');
+CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.554648, -73.554602), point(45.553693, -73.551639), 260,  30, 1, 'asphalte');
+CALL insertion_troncon( 'Boul. Pie-IX', 	point(45.553693, -73.551639), point(45.554648, -73.554602), 260,  30, 1, 'asphalte');
+CALL insertion_troncon( 'Ave. Pierre-de Coubertin', point(45.553693, -73.551639), point(45.562579, -73.545979), 1100,  50, 3, 'asphalte');
+CALL insertion_troncon( 'Ave. Pierre-de Coubertin', point(45.562579, -73.545979), point(45.553693, -73.551639), 1100,  50, 3, 'asphalte');
+CALL insertion_troncon( 'Rue Sherbrooke', 	point(45.565404, -73.554454), point(45.554648, -73.554602), 1200,  50, 3, 'asphalte');
 CALL insertion_troncon( 'Rue Sherbrooke', 	point(45.554648, -73.554602), point(45.565404, -73.554454), 1200,  50, 3, 'asphalte');
 
 
