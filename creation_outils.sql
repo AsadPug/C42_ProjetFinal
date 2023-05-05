@@ -3,6 +3,7 @@ DROP PROCEDURE IF EXISTS procedure_calibration;
 DROP PROCEDURE IF EXISTS procedure_dispositif_lumineux;
 DROP PROCEDURE IF EXISTS insertion_troncon;
 DROP FUNCTION IF EXISTS employe_random, profileur_random, vehicule_random, troncon_random;
+DROP FUNCTION IF EXISTS autre_employer_random(integer);
 DROP FUNCTION IF EXISTS random_forme_lumiere;
 DROP FUNCTION IF EXISTS random_couleur_lumiere;
 DROP FUNCTION IF EXISTS random_mode_lumiere;
@@ -29,6 +30,14 @@ CREATE OR REPLACE FUNCTION employe_random() RETURNS INT
 LANGUAGE SQL
 AS $$
 	SELECT id FROM employe order by random() limit 1;
+$$;
+--Abigail 
+CREATE OR REPLACE FUNCTION autre_employe_random(employe integer) RETURNS INT
+LANGUAGE SQL
+AS $$
+	SELECT id FROM employe AS emp 
+		WHERE emp.id != employe 
+		ORDER BY random() LIMIT 1 ;
 $$;
 
 --Kerian
@@ -172,6 +181,25 @@ BEGIN
                    TIMESTAMP '2023-04-05 00:00:00' );
 END;
 $$;
+
+/*
+-- Abigail
+CREATE OR REPLACE PROCEDURE insertion_inspection()
+LANGUAGE plpgsql
+AS $$
+DECLARE
+	random_date_debut TIMESTAMP;
+BEGIN
+	random_date_debut = random_timestamp();
+	INSERT INTO inspection(
+		date_debut, date_fin, chemin_fichier, conducteur, vehicule,
+		kilo_debut, kilo_fin, inspecteur, profileur_laser
+	)
+    VALUES (random_date_debut, random_end_timestamp(random_date_debut), '',);
+  
+END;
+$$;
+*/
 
 -- Ahmed
 CREATE PROCEDURE insertion_troncon(
