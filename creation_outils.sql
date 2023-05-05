@@ -282,3 +282,13 @@ BEGIN
   END LOOP;
 END;
 $$;
+
+-- Ahmed Thomas Kerian
+CREATE OR REPLACE FUNCTION nom_fichier(date_debut_inspection TIMESTAMPTZ)
+RETURNS CHAR(30)
+LANGUAGE PLPGSQL
+AS $$
+	BEGIN
+		RETURN 'PZ2_' || LPAD(NEXTVAL('numero_nom_fichier')::text, 8, '0') || '_' || TO_CHAR(date_debut_inspection, 'YYMMDDHHMMSS') || '.' ||('{xdat,jdat,bdat,kdat}'::text[])[CEIL(random()*4)];
+	END
+$$;
