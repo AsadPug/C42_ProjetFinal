@@ -6,6 +6,10 @@ DROP FUNCTION IF EXISTS employe_random, profileur_random, vehicule_random, tronc
 DROP FUNCTION IF EXISTS random_forme_lumiere;
 DROP FUNCTION IF EXISTS random_couleur_lumiere;
 DROP FUNCTION IF EXISTS random_mode_lumiere;
+DROP FUNCTION IF EXISTS position_random;
+DROP FUNCTION IF EXISTS id_random(text);
+DROP PROCEDURE IF EXISTS insertion_panneaux(integer);
+DROP PROCEDURE IF EXISTS insertion_dispositifs_particuliers(integer);
 
 --Kerian
 CREATE OR REPLACE PROCEDURE insert_inter(
@@ -162,3 +166,51 @@ BEGIN
 			  , (SELECT id FROM intersection WHERE coordonees[0] =  inter_fin[0])
 			  , long, vitesse, nbVoies, type_pavage);
 END;$$;	
+
+
+-- Ahmed
+CREATE OR REPLACE FUNCTION position_random()
+RETURNS INTEGER
+LANGUAGE PLPGSQL
+AS $$
+BEGIN
+  RETURN floor(random() * 100) + 1;
+END;
+$$;
+
+-- Ahmed
+CREATE OR REPLACE FUNCTION id_random(table_name text)
+RETURNS INTEGER
+LANGUAGE PLPGSQL
+AS $$
+DECLARE
+  max_id integer;
+  min_id integer;
+BEGIN
+  EXECUTE format('SELECT MIN(%I), MAX(%I) FROM %I', 'id', 'id', table_name) INTO min_id, max_id;
+  RETURN floor(random() * (max_id - min_id + 1)) + min_id;
+END;$$;
+
+-- Ahmed
+CREATE OR REPLACE PROCEDURE insertion_panneaux(nombre_panneaux INTEGER)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  FOR i IN 1..nombre_panneaux LOOP
+    INSERT INTO panneau(troncon, type, position)
+    VALUES (id_random('troncon'), id_random('type_panneau'), position_random());
+  END LOOP;
+END;
+$$;
+
+-- Ahmed
+CREATE OR REPLACE PROCEDURE insertion_dispositifs_particuliers(nombre_dispositifs INTEGER)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  FOR i IN 1..nombre_dispositifs LOOP
+    INSERT INTO panneau(troncon, type, position)
+    VALUES (id_random('troncon'), id_random('type_dispositif_particulier'), position_random());
+  END LOOP;
+END;
+$$;
