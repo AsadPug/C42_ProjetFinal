@@ -206,7 +206,7 @@ END;
 $$;
 
 -- Ahmed
-CREATE OR REPLACE FUNCTION id_random(table_name text)
+CREATE OR REPLACE FUNCTION id_random(table_name TEXT)
 RETURNS INTEGER
 LANGUAGE PLPGSQL
 AS $$
@@ -220,7 +220,7 @@ END;$$;
 
 -- Ahmed
 CREATE OR REPLACE PROCEDURE insertion_panneaux(nombre_panneaux INTEGER)
-LANGUAGE plpgsql
+LANGUAGE PLPGSQL
 AS $$
 BEGIN
   FOR i IN 1..nombre_panneaux LOOP
@@ -232,11 +232,11 @@ $$;
 
 -- Ahmed
 CREATE OR REPLACE PROCEDURE insertion_dispositifs_particuliers(nombre_dispositifs INTEGER)
-LANGUAGE plpgsql
+LANGUAGE PLPGSQL
 AS $$
 BEGIN
   FOR i IN 1..nombre_dispositifs LOOP
-    INSERT INTO panneau(troncon, type, position)
+    INSERT INTO dispositif_particulier(troncon, type, position)
     VALUES (id_random('troncon'), id_random('type_dispositif_particulier'), position_random());
   END LOOP;
 END;
