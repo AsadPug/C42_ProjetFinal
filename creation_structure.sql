@@ -32,8 +32,8 @@ DROP TABLE IF EXISTS dispositif_lumineux;
 
 -- Suppression de enums
 
-DROP TYPE IF EXISTS TYPE_MODE;
-DROP TYPE IF EXISTS TYPE_ORIENTAION;
+DROP TYPE IF EXISTS TYPE_MODE CASCADE;
+DROP TYPE IF EXISTS TYPE_ORIENTAION CASCADE;
 DROP TYPE IF EXISTS genre CASCADE;
 DROP TYPE IF EXISTS pavage CASCADE;
 
@@ -49,7 +49,7 @@ CREATE TYPE genre AS ENUM('f', 'h', 'x');
 CREATE TYPE pavage AS ENUM('asphalte', 'ciment', 'pavé brique', 'pavé pierre', 'non pavé', 'indéterminé');
 
 -- Ahmed
-CREATE TYPE TYPE_MODE 		AS ENUM ('solide', 'clignotant', 'contôlé', 'intelligente');
+CREATE TYPE TYPE_MODE 		AS ENUM ('solide', 'clignotant', 'contrôlé', 'intelligente');
 
 -- Ahmed
 CREATE TYPE TYPE_ORIENTAION AS ENUM ('horizontale', 'verticale', 'autre');
