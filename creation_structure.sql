@@ -98,7 +98,7 @@ CREATE TABLE troncon_inspection(
 -- Thomas
 CREATE TABLE employe(
 	id					SERIAL,
-	nas					CHAR(9) 		NOT NULL,
+	nas					CHAR(9) 		NOT NULL UNIQUE,
 	nom					VARCHAR(32)		NOT NULL,
 	prenom				VARCHAR(32)		NOT NULL,
 	genre				genre			NOT NULL,
@@ -148,7 +148,7 @@ CREATE TABLE troncon(
 --Thomas
 CREATE TABLE intersection(
 	id					SERIAL,
-	identifiant				NUMERIC(7,0)	NOT NULL,
+	identifiant				NUMERIC(7,0)	NOT NULL UNIQUE,
 	coordonees				POINT 		NOT NULL,
 	pavage					pavage		NOT NULL,
 	
