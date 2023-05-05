@@ -169,5 +169,5 @@ CALL procedure_dispositif_lumineux(100.00, 19, 'verticale');
 CALL procedure_dispositif_lumineux(100.00, 20, 'verticale');
 CALL procedure_dispositif_lumineux(100.00, 21, 'horizontale');
 CALL procedure_dispositif_lumineux(100.00, 22, 'horizontale');
---CALL procedure_dispositif_lumineux(100.00, 23, 'verticale');
---CALL procedure_dispositif_lumineux(100.00, 24, 'horizontale');
+CALL procedure_dispositif_lumineux(100.00, 23, 'verticale');
+CALL procedure_dispositif_lumineux(100.00, 24, 'horizontale');
