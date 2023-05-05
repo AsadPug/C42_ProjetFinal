@@ -190,24 +190,29 @@ BEGIN
 END;
 $$;
 
-/*
 -- Abigail
 CREATE OR REPLACE PROCEDURE insertion_inspection()
 LANGUAGE plpgsql
 AS $$
 DECLARE
 	random_date_debut TIMESTAMP;
+	random_conducteur INTEGER;
+	random_kilo_debut INTEGER;
+	
 BEGIN
 	random_date_debut = random_timestamp();
+	random_conducteur = employe_random();
+	random_kilo_debut = random() * 400000 + 1;
 	INSERT INTO inspection(
 		date_debut, date_fin, chemin_fichier, conducteur, vehicule,
 		kilo_debut, kilo_fin, inspecteur, profileur_laser
 	)
-    VALUES (random_date_debut, random_end_timestamp(random_date_debut), '',);
-  
+    VALUES (
+		random_date_debut, random_end_timestamp(random_date_debut), '', random_conducteur, vehicule_random(),
+		random_kilo_debut, random_kilo_debut, autre_employe_random(random_conducteur), random_profileur()
+	);
 END;
 $$;
-*/
 
 -- Ahmed
 CREATE PROCEDURE insertion_troncon(
