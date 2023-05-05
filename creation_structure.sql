@@ -55,7 +55,7 @@ CREATE TYPE TYPE_MODE 		AS ENUM ('solide', 'clignotant', 'contôlé', 'intellige
 CREATE TYPE TYPE_ORIENTAION AS ENUM ('horizontale', 'verticale', 'autre');
 
 --Kerian
-CREATE SEQUENCE identifiant_intersection START WITH 1000000 INCREMENT BY 1;
+CREATE SEQUENCE identifiant_intersection START WITH 1 INCREMENT BY 1;
 
 --Abigail 
 CREATE SEQUENCE numero_immatriculation START WITH 111 INCREMENT BY 1;
