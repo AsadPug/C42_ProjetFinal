@@ -43,6 +43,7 @@ DROP TABLE IF EXISTS vehicule, calibration, profileur_laser, employe, poste, dep
 DROP SEQUENCE IF EXISTS identifiant_intersection;
 DROP SEQUENCE IF EXISTS numero_immatriculation;
 DROP SEQUENCE IF EXISTS numero_serie;
+DROP SEQUENCE IF EXISTS numero_nom_fichier;
 
 -- Thomas
 CREATE TYPE genre AS ENUM('f', 'h', 'x');
