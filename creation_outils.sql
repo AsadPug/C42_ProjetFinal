@@ -61,7 +61,7 @@ AS $$
 	SELECT id FROM troncon order by random() LIMIT 1;
 $$;
 
-CREATE PROCEDURE insertion_troncon_inspection(id_inscpection INTEGER)
+CREATE OR REPLACE PROCEDURE insertion_troncon_inspection(id_inscpection INTEGER)
 LANGUAGE PLPGSQL
 AS $$
 	BEGIN
