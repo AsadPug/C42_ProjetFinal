@@ -68,19 +68,19 @@ INSERT INTO poste(nom)
 
 -- Ahmed
 INSERT INTO employe(nas, nom, prenom, genre, date_embauche, salaire, poste, departement)
-	VALUES (123456789, 'Sadek', 'Ahmed', 'h', CURRENT_DATE, 55.0
+	VALUES (123456789, 'Sadek', 'Ahmed', 'h', '2018-02-13', 55.0
 			, (SELECT id FROM poste WHERE nom = 'technicien')
 			, (SELECT id FROM departement WHERE nom = 'informatique'));
 
 -- Thomas
 INSERT INTO employe(nas, nom, prenom, genre, date_embauche, salaire, poste, departement)
-	VALUES ('912345678', 'Garneau', 'Thomas', 'h', CURRENT_DATE, 25.0
+	VALUES ('912345678', 'Garneau', 'Thomas', 'h', '2020-05-24', 25.0
 			, (SELECT id FROM poste WHERE nom = 'professionnel')
 			, (SELECT id FROM departement WHERE nom = 'ventes et représentation'));
 			
 -- Kerian
 INSERT INTO employe(nas, nom, prenom, genre, date_embauche, salaire, poste, departement)
-	VALUES (384210428, 'Devillers', 'Kerian', 'h', CURRENT_DATE, 30.5,
+	VALUES (384210428, 'Devillers', 'Kerian', 'h', '2022-09-17', 30.5,
 			(SELECT id FROM poste WHERE nom = 'scientifique'),
 			(SELECT id FROM departement WHERE nom = 'recherche'));		
 			
