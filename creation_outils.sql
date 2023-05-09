@@ -11,8 +11,7 @@ DROP FUNCTION IF EXISTS position_random;
 DROP FUNCTION IF EXISTS id_random(text);
 DROP FUNCTION IF EXISTS random_timestamp();
 DROP FUNCTION IF EXISTS random_end_timestamp(TIMESTAMP);
-DROP PROCEDURE IF EXISTS insertion_panneaux(integer);
-DROP PROCEDURE IF EXISTS insertion_dispositifs_particuliers(integer);
+DROP PROCEDURE IF EXISTS insertion_panneaux_et_dispos(integer);
 
 --Kerian
 CREATE OR REPLACE PROCEDURE insert_inter(
@@ -278,7 +277,7 @@ BEGIN
 END;$$;
 
 -- Ahmed
-CREATE OR REPLACE PROCEDURE insertion_panneaux(nombre_panneaux INTEGER)
+CREATE OR REPLACE PROCEDURE insertion_panneaux_et_dispos(nombre_panneaux INTEGER)
 LANGUAGE PLPGSQL
 AS $$
 BEGIN
@@ -289,17 +288,6 @@ BEGIN
 END;
 $$;
 
--- Ahmed
-CREATE OR REPLACE PROCEDURE insertion_dispositifs_particuliers(nombre_dispositifs INTEGER)
-LANGUAGE PLPGSQL
-AS $$
-BEGIN
-  FOR i IN 1..nombre_dispositifs LOOP
-    INSERT INTO dispositif_particulier(troncon, type, position)
-    VALUES (id_random('troncon'), id_random('type_dispositif_particulier'), position_random());
-  END LOOP;
-END;
-$$;
 
 -- Ahmed Thomas Kerian
 CREATE OR REPLACE FUNCTION nom_fichier(date_debut_inspection TIMESTAMPTZ)
