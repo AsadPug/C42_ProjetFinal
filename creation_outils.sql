@@ -87,6 +87,31 @@ CREATE TRIGGER update_kilo_fin AFTER INSERT OR UPDATE
 	FOR EACH ROW EXECUTE FUNCTION update_kilo_fin();
 
 -- Thomas
+CREATE OR REPLACE FUNCTION random_lumiere()
+RETURNS TRIGGER
+LANGUAGE PLPGSQL
+AS
+$$
+DECLARE 
+	random_num INTEGER;
+BEGIN
+	
+	random_num = FLOOR(RANDOM()*(5 - 1 + 1)) + 1;
+
+	FOR x IN 1..random_num LOOP
+		INSERT INTO lumiere(forme, couleur, mode, dispositif)
+			VALUES(random_forme_lumiere(), random_couleur_lumiere(), random_mode_lumiere(), (SELECT id FROM dispositif_lumineux ORDER BY id DESC LIMIT 1));
+  	END LOOP;
+	RETURN NEW;
+END;
+$$;
+	
+CREATE OR REPLACE TRIGGER new_lumieres
+AFTER INSERT ON dispositif_lumineux
+FOR EACH ROW
+EXECUTE PROCEDURE random_lumiere();
+
+-- Thomas
 CREATE OR REPLACE PROCEDURE procedure_calibration(
 	date_debut_calibration			TIMESTAMP, 
 	date_fin_calibration			TIMESTAMP,  
@@ -149,19 +174,11 @@ CREATE OR REPLACE PROCEDURE procedure_dispositif_lumineux(
 )
 LANGUAGE PLPGSQL
 AS $$
-DECLARE 
-	random_num INTEGER;
 BEGIN
-
-	random_num = FLOOR(RANDOM()*(5 - 1 + 1)) + 1;
 
 	INSERT INTO dispositif_lumineux(position, troncon, orientation)
 		VALUES (_position, (SELECT id FROM troncon WHERE id = _troncon), _orientation);
 		
-	FOR x IN 1..random_num LOOP
-		INSERT INTO lumiere(forme, couleur, mode, dispositif)
-			VALUES(random_forme_lumiere(), random_couleur_lumiere(), random_mode_lumiere(), (SELECT id FROM dispositif_lumineux ORDER BY id DESC LIMIT 1));
-  	END LOOP;
 END;
 $$;
 
