@@ -1,3 +1,29 @@
+TRUNCATE dispositif_lumineux CASCADE;
+TRUNCATE vehicule CASCADE;
+TRUNCATE profileur_laser CASCADE;
+TRUNCATE calibration CASCADE;
+TRUNCATE employe CASCADE;
+TRUNCATE poste CASCADE;
+TRUNCATE departement CASCADE;
+TRUNCATE troncon CASCADE;
+TRUNCATE inspection CASCADE;
+TRUNCATE intersection CASCADE;
+TRUNCATE troncon_inspection CASCADE;
+TRUNCATE type_panneau CASCADE;
+TRUNCATE panneau CASCADE;
+TRUNCATE type_dispositif_particulier CASCADE;
+TRUNCATE dispositif_particulier CASCADE;
+TRUNCATE couleur CASCADE;
+TRUNCATE forme CASCADE;
+TRUNCATE lumiere CASCADE;
+
+
+--Reset sequences
+ALTER SEQUENCE identifiant_intersection RESTART WITH 1;
+ALTER SEQUENCE numero_immatriculation RESTART WITH 111;
+ALTER SEQUENCE numero_serie RESTART WITH 1000000000000000;
+ALTER SEQUENCE numero_nom_fichier RESTART WITH 20;
+
 --Abigail
 INSERT INTO type_dispositif_particulier(type)
 VALUES('accès fauteuil roulant'),
