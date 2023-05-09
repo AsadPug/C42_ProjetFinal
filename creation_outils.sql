@@ -13,6 +13,21 @@ DROP FUNCTION IF EXISTS random_timestamp();
 DROP FUNCTION IF EXISTS random_end_timestamp(TIMESTAMP);
 DROP PROCEDURE IF EXISTS insertion_panneaux_et_dispos(integer);
 
+-- Ahmed
+CREATE OR REPLACE FUNCTION new_dispositif_random() RETURNS TRIGGER AS $$
+BEGIN
+    INSERT INTO dispositif_particulier(troncon, type, position)
+    VALUES (id_random('troncon'), id_random('type_dispositif_particulier'), position_random());
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE TRIGGER dispositif_random
+BEFORE INSERT ON panneau
+FOR EACH ROW
+EXECUTE FUNCTION new_dispositif_random();
+
+
 --Kerian
 CREATE OR REPLACE PROCEDURE insert_inter(
 	coordonees_inter intersection.coordonees%TYPE,
