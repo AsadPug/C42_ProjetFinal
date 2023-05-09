@@ -82,7 +82,7 @@ RETURNS TRIGGER AS $$
 $$
 LANGUAGE PLPGSQL;
 
-CREATE OR REPLACE TRIGGER update_kilo_fin AFTER INSERT OR UPDATE
+CREATE TRIGGER update_kilo_fin AFTER INSERT OR UPDATE
 	ON troncon_inspection
 	FOR EACH ROW EXECUTE FUNCTION update_kilo_fin();
 
@@ -203,13 +203,14 @@ BEGIN
 	random_date_debut = random_timestamp();
 	random_conducteur = employe_random();
 	random_kilo_debut = random() * 400000 + 1;
+	
 	INSERT INTO inspection(
 		date_debut, date_fin, chemin_fichier, conducteur, vehicule,
 		kilo_debut, kilo_fin, inspecteur, profileur_laser
 	)
     VALUES (
-		random_date_debut, random_end_timestamp(random_date_debut), '', random_conducteur, vehicule_random(),
-		random_kilo_debut, random_kilo_debut, autre_employe_random(random_conducteur), random_profileur()
+		random_date_debut, random_end_timestamp(random_date_debut), nom_fichier((random_date_debut AT TIME ZONE 'EST')::TIMESTAMPTZ) , random_conducteur, vehicule_random(),
+		random_kilo_debut, random_kilo_debut, autre_employe_random(random_conducteur), profileur_random()
 	);
 END;
 $$;

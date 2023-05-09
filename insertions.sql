@@ -84,6 +84,13 @@ INSERT INTO employe(nas, nom, prenom, genre, date_embauche, salaire, poste, depa
 			(SELECT id FROM poste WHERE nom = 'scientifique'),
 			(SELECT id FROM departement WHERE nom = 'recherche'));		
 			
+-- Abigail 
+INSERT INTO employe(nas, nom, prenom, genre, date_embauche, salaire, poste, departement)
+	VALUES (321354675, 'Fournier', 'Abigail', 'f', '2021-09-15', 22.5,
+			(SELECT id FROM poste WHERE nom = 'technicien'),
+			(SELECT id FROM departement WHERE nom = 'ventes et représentation'));		
+			
+			
 --Kerian
 CALL insert_inter((point(45.562579, -73.545979)), 'asphalte');
 CALL insert_inter((point(45.565404, -73.554454)), 'asphalte');
@@ -171,3 +178,15 @@ CALL procedure_dispositif_lumineux(100.00, 21, 'horizontale');
 CALL procedure_dispositif_lumineux(100.00, 22, 'horizontale');
 CALL procedure_dispositif_lumineux(100.00, 23, 'verticale');
 CALL procedure_dispositif_lumineux(100.00, 24, 'horizontale');
+
+-- Abigail et Kerian
+DO $$
+BEGIN
+	FOR inspection IN 1..1000 LOOP
+		CALL insertion_inspection();
+		FOR troncon_inspection IN 1..10 LOOP
+			CALL insertion_troncon_inspection(inspection);
+		END LOOP;
+	END LOOP;
+END; $$
+		
