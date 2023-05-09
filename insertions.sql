@@ -147,8 +147,7 @@ CALL insertion_troncon( 'Rue Sherbrooke', 	point(45.554648, -73.554602), point(4
 
 
 -- Ahmed
-CALL insertion_panneaux(100);
-CALL insertion_dispositifs_particuliers(100);
+CALL insertion_panneaux_et_dispos(100);
 
 -- Thomas
 CALL procedure_dispositif_lumineux(100.00, 1, 'horizontale');
