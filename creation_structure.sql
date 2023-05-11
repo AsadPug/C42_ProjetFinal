@@ -107,7 +107,7 @@ CREATE TABLE employe(
 	prenom				VARCHAR(32)		NOT NULL,
 	genre				genre			NOT NULL,
 	date_embauche		DATE			NOT NULL,
-	salaire				DECIMAL(5, 2) 	NOT NULL DEFAULT 27.50,
+	salaire				NUMERIC(5, 2) 	NOT NULL DEFAULT 27.50,
 	poste				INTEGER			NOT NULL,
 	departement			INTEGER		NOT NULL,
 	
@@ -156,6 +156,7 @@ CREATE TABLE intersection(
 	coordonees				POINT 		NOT NULL,
 	pavage					pavage		NOT NULL,
 	
+	CONSTRAINT cc_intersection_identifiant CHECK(identifiant BETWEEN 1000000 AND 9999999),
 	CONSTRAINT pk_intersection_id PRIMARY KEY(id)
 );
 
