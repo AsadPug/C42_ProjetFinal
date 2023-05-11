@@ -56,7 +56,8 @@ CREATE TYPE TYPE_MODE 		AS ENUM ('solide', 'clignotant', 'contrôlé', 'intellig
 CREATE TYPE TYPE_ORIENTAION AS ENUM ('horizontale', 'verticale', 'autre');
 
 --Kerian
-CREATE SEQUENCE identifiant_intersection START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE identifiant_intersection START WITH 1000000;
+
 
 --Abigail 
 CREATE SEQUENCE numero_immatriculation START WITH 111 INCREMENT BY 1;
@@ -152,7 +153,7 @@ CREATE TABLE troncon(
 --Thomas
 CREATE TABLE intersection(
 	id					SERIAL,
-	identifiant				NUMERIC(7,0)	NOT NULL UNIQUE,
+	identifiant				INTEGER 	NOT NULL UNIQUE,
 	coordonees				POINT 		NOT NULL,
 	pavage					pavage		NOT NULL,
 	

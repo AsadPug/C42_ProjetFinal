@@ -19,7 +19,7 @@ TRUNCATE lumiere CASCADE;
 
 
 --Reset sequences
-ALTER SEQUENCE identifiant_intersection RESTART WITH 1;
+ALTER SEQUENCE identifiant_intersection RESTART WITH 1000000;
 ALTER SEQUENCE numero_immatriculation RESTART WITH 111;
 ALTER SEQUENCE numero_serie RESTART WITH 1000000000000000;
 ALTER SEQUENCE numero_nom_fichier RESTART WITH 20;
@@ -207,11 +207,9 @@ CALL procedure_dispositif_lumineux(100.00, 24, 'horizontale');
 -- Abigail et Kerian
 DO $$
 BEGIN
-	FOR inspection IN 1..1000 LOOP
+	FOR inspection IN 1..100 LOOP
 		CALL insertion_inspection();
-		FOR troncon_inspection IN 1..10 LOOP
-			CALL insertion_troncon_inspection(inspection);
-		END LOOP;
 	END LOOP;
 END; $$
-		
+
+

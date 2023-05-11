@@ -22,7 +22,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE TRIGGER dispositif_random
+CREATE TRIGGER dispositif_random
 BEFORE INSERT ON panneau
 FOR EACH ROW
 EXECUTE FUNCTION new_dispositif_random();
@@ -38,7 +38,7 @@ AS $$
 	INSERT INTO intersection(identifiant, coordonees, pavage)
 		VALUES (NEXTVAL('identifiant_intersection'), coordonees_inter, pavage_inter);
 $$;
-
+		
 --Kerian
 CREATE OR REPLACE FUNCTION employe_random() RETURNS INT
 LANGUAGE SQL
@@ -120,7 +120,7 @@ BEGIN
 END;
 $$;
 	
-CREATE OR REPLACE TRIGGER new_lumieres
+CREATE TRIGGER new_lumieres
 AFTER INSERT ON dispositif_lumineux
 FOR EACH ROW
 EXECUTE PROCEDURE random_lumiere();
@@ -245,6 +245,22 @@ BEGIN
 	);
 END;
 $$;
+
+-- Abigail
+CREATE OR REPLACE FUNCTION update_troncon_inspection()
+RETURNS TRIGGER LANGUAGE PLPGSQL AS $$
+	BEGIN
+		FOR i IN 1..10 LOOP
+			CALL insertion_troncon_inspection(NEW.id);
+		END LOOP;
+		RETURN NEW;
+	END;
+$$;
+
+
+CREATE TRIGGER update_troncon_inspection 
+	AFTER INSERT ON inspection
+	FOR EACH ROW EXECUTE FUNCTION update_troncon_inspection();
 
 -- Ahmed
 CREATE PROCEDURE insertion_troncon(
