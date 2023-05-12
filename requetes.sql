@@ -16,7 +16,8 @@ SELECT * FROM employe_calibration;
 -- le nom de la rue du tronçon et le nombre de dispositifs lumineux de chaque forme
 -- spécifiée. Le résultat ne devrait pas montrer de NULL (0 si aucune), ni les tronçons qui
 -- n’ont aucun dispositif avec des lumières de ces formes.
--- Évaluation : 
+-- Évaluation : Le nombre de lumières de chaque type incluant "humain", "main", "vélo" selon chaque 
+-- nom de rue.
 -- Réalisé par : Thomas Garneau
 -- Aidé par : ...
 -- =======================================================
