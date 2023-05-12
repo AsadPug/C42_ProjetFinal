@@ -74,6 +74,18 @@ CREATE SEQUENCE numero_serie START WITH 1000000000000000 INCREMENT BY 1;
 -- Ahmed
 CREATE SEQUENCE numero_nom_fichier START WITH 20 INCREMENT BY 1;
 
+-- Thomas
+CREATE INDEX chercher_lumiere_forme
+	ON lumiere(forme);
+	
+-- Thomas
+CREATE VIEW employe_calibration AS
+		SELECT emp.prenom || ' ' ||emp.nom AS "Nom de lemployé", 
+		COUNT(cal.id) AS "Nombre de calibrations effectuées" 
+		FROM calibration AS cal 
+		FULL JOIN employe as emp ON emp.id = cal.employe 
+		GROUP BY emp.prenom, emp.nom;
+
 --Abigail 
 CREATE TABLE inspection(
 	id						SERIAL,
