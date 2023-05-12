@@ -53,3 +53,39 @@ SELECT tro.nom AS "Nom de la rue du troncon",
 		ORDER BY tro.id ASC
 		LIMIT 3;
 -- =======================================================
+
+
+
+-- =======================================================
+-- Requête: Série 1, #4
+-- Objectif : Donner le nombre d’inspections où chaque employé était conducteur.
+-- Réalisé par : Kerian Devillers
+-- Aidé par : ...
+-- =======================================================
+
+SELECT emp.prenom || ' ' || emp.nom AS "Nom", COUNT(*) AS "Nombre de fois conducteur"
+	FROM inspection AS ins
+		INNER JOIN employe AS emp
+			ON ins.conducteur = emp.id 
+	GROUP BY emp.nom, emp.prenom
+-- =======================================================
+	
+-- =======================================================
+-- Requête: Série 2, #3
+-- Objectif : On veut la liste des profileurs laser ayant besoin d’être calibrés. La formule suivante permet de valider cette information. Si cet énoncé est vrai, une calibration est requise :
+--√|𝑣1𝑣2 – 1| ≤ 1
+--𝑣2 𝜋2
+-- Réalisé par : Kerian Devillers
+-- Aidé par : ...
+-- =======================================================
+
+SELECT pl.id 
+	FROM profileur_laser AS pl
+		INNER JOIN calibration AS cal
+			ON pl.id = cal.profileur
+	WHERE SQRT(ABS(((cal.v1 * cal.v2) / (cal.v3 ^2)) - 1)) <= (1 / (PI()^2)) 
+		 AND cal.id = (SELECT id
+					  	FROM calibration
+					  	ORDER BY date_fin DESC
+						LIMIT  1)
+-- =======================================================
