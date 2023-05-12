@@ -45,6 +45,12 @@ DROP SEQUENCE IF EXISTS numero_immatriculation;
 DROP SEQUENCE IF EXISTS numero_serie;
 DROP SEQUENCE IF EXISTS numero_nom_fichier;
 
+--Suppression des vues
+DROP VIEW IF EXISTS employe_calibration;
+
+--Suppression des index
+DROP INDEX IF EXISTS chercher_lumiere_forme;
+
 -- Thomas
 CREATE TYPE genre AS ENUM('f', 'h', 'x');
 CREATE TYPE pavage AS ENUM('asphalte', 'ciment', 'pavé brique', 'pavé pierre', 'non pavé', 'indéterminé');
