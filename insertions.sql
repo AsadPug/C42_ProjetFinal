@@ -23,6 +23,7 @@ ALTER SEQUENCE identifiant_intersection RESTART WITH 1000000;
 ALTER SEQUENCE numero_immatriculation RESTART WITH 111;
 ALTER SEQUENCE numero_serie RESTART WITH 1000000000000000;
 ALTER SEQUENCE numero_nom_fichier RESTART WITH 20;
+ALTER SEQUENCE IF EXISTS troncon_id_seq RESTART WITH 1;
 
 --Abigail
 INSERT INTO type_dispositif_particulier(type)
