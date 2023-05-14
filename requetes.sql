@@ -156,19 +156,16 @@ SELECT pl.id
 -- Réalisé par : Ahmed Sadek
 -- Aidé par : ...
 -- =======================================================
-SELECT    emp.nom AS "Nom de employe"
-		, emp.prenom AS "Prenom de employe"
-		, poste.nom AS "Poste de employe"
-		, dep.nom AS "Nom du département"
-		, EXTRACT(YEAR FROM age(CURRENT_DATE, date_embauche)) || ' ans et ' ||
-		  EXTRACT(MONTH FROM age(CURRENT_DATE, date_embauche)) || ' mois' AS "Ancienneté"
-		, emp.salaire * 35 * 52 AS "Salaire annuel"
-		, (emp.salaire * 35 * 52) * 1.15 AS "Salaire annuel augmenté de 15%"
-FROM employe AS "emp"
-INNER JOIN departement AS "dep"
-	ON emp.departement = dep.id
-INNER JOIN poste
-	ON emp.poste = poste.id;
+SELECT    nom_employe AS "Nom de employe"
+		, prenom_employe AS "Prenom de employe"
+		, poste_employe AS "Poste de employe"
+		, departement_employe AS "Nom du département"
+		, EXTRACT(YEAR FROM age(CURRENT_DATE, date_embauche_employe)) || ' ans et ' ||
+		  EXTRACT(MONTH FROM age(CURRENT_DATE, date_embauche_employe)) || ' mois' AS "Ancienneté"
+		, salaire_employe * 35 * 52 AS "Salaire annuel"
+		, (salaire_employe * 35 * 52) * 1.15 AS "Salaire annuel augmenté de 15%"
+		
+FROM employe_departement_poste;
 -- =======================================================
 
 -- =======================================================
