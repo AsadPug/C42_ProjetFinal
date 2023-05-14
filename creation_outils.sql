@@ -329,3 +329,14 @@ AS $$
 		RETURN 'PZ2_' || LPAD(NEXTVAL('numero_nom_fichier')::text, 8, '0') || '_' || TO_CHAR(date_debut_inspection, 'YYMMDDHHMMSS') || '.' ||('{xdat,jdat,bdat,kdat}'::text[])[CEIL(random()*4)];
 	END
 $$;
+
+-- Ahmed 
+CREATE OR REPLACE FUNCTION heures_totales(date_debut timestamp, date_fin timestamp)
+RETURNS NUMERIC
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    RETURN EXTRACT(EPOCH FROM AGE(date_fin, date_debut)) / 3600;
+END;
+$$;
+
