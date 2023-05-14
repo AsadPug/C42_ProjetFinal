@@ -107,7 +107,6 @@ SELECT    emp.nom AS "Nom de employe"
 		  EXTRACT(MONTH FROM age(CURRENT_DATE, date_embauche)) || ' mois' AS "Ancienneté"
 		, emp.salaire * 35 * 52 AS "Salaire annuel"
 		, (emp.salaire * 35 * 52) * 1.15 AS "Salaire annuel augmenté de 15%"
-		
 FROM employe AS "emp"
 INNER JOIN departement AS "dep"
 	ON emp.departement = dep.id
@@ -125,7 +124,6 @@ INNER JOIN poste
 -- Aidé par : ...
 -- =======================================================
 
--- SELECT * 
 SELECT 	ins.id AS "Inspection", 
 		ROUND(
 	  	heures_totales(ins.date_debut, ins.date_fin) * conducteur.salaire + 
