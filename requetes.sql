@@ -89,3 +89,52 @@ SELECT pl.id
 					  	ORDER BY date_fin DESC
 						LIMIT  1)
 -- =======================================================
+
+-- =======================================================
+-- Requête: Série 1, #1
+-- Objectif : Donner la liste des employés : nom, prénom, poste, nom du département,
+-- ancienneté (en année et mois), leur salaire annuel (considérant qu’ils travaillent 
+-- 35 heures par semaine et 52 semainespar année) et leur salaire annuel augmenté de 15%.
+-- Évaluation : ...
+-- Réalisé par : Ahmed Sadek
+-- Aidé par : ...
+-- =======================================================
+SELECT    emp.nom AS "Nom de employe"
+		, emp.prenom AS "Prenom de employe"
+		, poste.nom AS "Poste de employe"
+		, dep.nom AS "Nom du département"
+		, EXTRACT(YEAR FROM age(CURRENT_DATE, date_embauche)) || ' ans et ' ||
+		  EXTRACT(MONTH FROM age(CURRENT_DATE, date_embauche)) || ' mois' AS "Ancienneté"
+		, emp.salaire * 35 * 52 AS "Salaire annuel"
+		, (emp.salaire * 35 * 52) * 1.15 AS "Salaire annuel augmenté de 15%"
+		
+FROM employe AS "emp"
+INNER JOIN departement AS "dep"
+	ON emp.departement = dep.id
+INNER JOIN poste
+	ON emp.poste = poste.id;
+-- =======================================================
+
+-- =======================================================
+-- Requête: Série 2, #2
+-- Objectif : Pour chacune des inspections, on désire savoir quels ont été les frais 
+-- associés (vous devez tenir compte du temps passé pour les deux employés lors de 
+-- l’inspection et des coûts d’exploitation du véhicule à 4.79$ par kilomètre.).
+-- Évaluation : ...
+-- Réalisé par : Ahmed Sadek
+-- Aidé par : ...
+-- =======================================================
+
+-- SELECT * 
+SELECT 	ins.id AS "Inspection", 
+		ROUND(
+	  	heures_totales(ins.date_debut, ins.date_fin) * conducteur.salaire + 
+	  	heures_totales(ins.date_debut, ins.date_fin) * inspecteur.salaire + 
+	  	(kilo_fin - kilo_debut) * 4.79
+	  	, 2) || '$' AS "Frais associés"
+FROM inspection AS ins
+INNER JOIN employe AS conducteur
+	ON ins.conducteur = conducteur.id
+INNER JOIN employe AS inspecteur
+	ON ins.inspecteur = inspecteur.id;
+-- =======================================================
