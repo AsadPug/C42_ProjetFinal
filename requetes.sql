@@ -54,7 +54,64 @@ SELECT tro.nom AS "Nom de la rue du troncon",
 		LIMIT 3;
 -- =======================================================
 
+-- =======================================================
+-- Requête: Série 1, #3
+-- Objectif : Donner le nombre d’inspections que chaque employé a fait.
+-- Réalisé par : Abigail Fournier
+-- Aidé par : ...
+-- =======================================================
+SELECT emp.prenom || ' ' || emp.nom as "Nom", SUM(n_emp_ins.n_ins) as "Nombre d inspection"
+	FROM(SELECT ins.inspecteur as employe, COUNT(*) as n_ins
+			 FROM inspection as ins
+			 GROUP BY ins.inspecteur
+		 UNION ALL
+		 SELECT * 
+		 	 FROM nombre_conducteur_inspection) as n_emp_ins
+	INNER JOIN employe AS emp
+			ON n_emp_ins.employe = emp.id
+	GROUP BY emp.nom, emp.prenom;
+-- =======================================================
 
+-- =======================================================
+-- Requête: Série 2, #1
+-- Objectif : Pour chaque véhicule, combien de kilomètres de tronçons 
+-- ont été parcourus pour réaliser les inspections.
+--
+-- Note: Nous avons un trigger qui rajoute la distance d'un troncons au kilo_fin
+-- d'une inspection lorsque qu'une valeure est ajouté a troncon_inspection. Cela 
+-- rend cette requête beaucoup plus simple puisque nous pouvons assumer que
+-- kilo_fin - kilo_debut va toujours être égale a la somme de tout les tronçons de
+-- l'inspection
+--
+-- Réalisé par : Abigail Fournier
+-- Aidé par : ...
+-- =======================================================
+SELECT vehicule, SUM(kilo_fin - kilo_debut) as "Nombre de kilomètres parcouru pour les inspection"
+	FROM inspection
+	GROUP BY vehicule;
+-- =======================================================
+
+-- =======================================================
+-- Requête: Série 3
+-- Objectif: Donner le nom et le prenom du conducteur qui a conduit la 
+-- même voiture pour le plus grand nombre d'inspection si et seulement si le 
+-- conducteur à conduit ce vehicule pour plus de 10 inspections. Donne également le
+-- d'inspection que ce conducteur a conduit se vehicule.
+-- Réalisé par : Abigail Fournier
+-- Aidé par : ...
+-- =======================================================
+SELECT n_veh_ins.nom as "nom du conducteur",
+	n_veh_ins.count as "nombre d inspection avec le meme vehicule"
+	FROM   (SELECT veh.immatriculation,
+			emp.prenom || ' ' || emp.nom as nom, COUNT(*)
+				FROM vehicule as veh
+				INNER JOIN inspection as ins ON veh.id = ins.vehicule
+				INNER JOIN employe as emp ON ins.conducteur = emp.id
+				GROUP BY veh.immatriculation,emp.prenom,  emp.nom
+				HAVING COUNT(*)>10)as n_veh_ins
+	ORDER BY "nombre d inspection avec le meme vehicule" DESC
+	LIMIT 1;
+-- =======================================================
 
 -- =======================================================
 -- Requête: Série 1, #4
@@ -67,7 +124,7 @@ SELECT emp.prenom || ' ' || emp.nom AS "Nom", COUNT(*) AS "Nombre de fois conduc
 	FROM inspection AS ins
 		INNER JOIN employe AS emp
 			ON ins.conducteur = emp.id 
-	GROUP BY emp.nom, emp.prenom
+	GROUP BY emp.nom, emp.prenom;
 -- =======================================================
 	
 -- =======================================================
@@ -87,7 +144,7 @@ SELECT pl.id
 		 AND cal.id = (SELECT id
 					  	FROM calibration
 					  	ORDER BY date_fin DESC
-						LIMIT  1)
+						LIMIT  1);
 -- =======================================================
 
 -- =======================================================

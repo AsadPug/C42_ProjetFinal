@@ -47,9 +47,11 @@ DROP SEQUENCE IF EXISTS numero_nom_fichier;
 
 --Suppression des vues
 DROP VIEW IF EXISTS employe_calibration;
+DROP VIEW IF EXISTS nombre_conducteur_inspection;
 
 --Suppression des index
 DROP INDEX IF EXISTS chercher_lumiere_forme;
+DROP INDEX IF EXISTS chercher_conducteur;
 
 -- Thomas
 CREATE TYPE genre AS ENUM('f', 'h', 'x');
@@ -358,6 +360,10 @@ ALTER TABLE dispositif_lumineux ADD CONSTRAINT fk_dl_tro	FOREIGN KEY(troncon) RE
 CREATE INDEX chercher_lumiere_forme
 	ON lumiere(forme);
 	
+-- Abigail
+CREATE INDEX chercher_conducteur
+	ON inspection(conducteur);
+
 -- Thomas
 CREATE VIEW employe_calibration AS
 		SELECT emp.prenom || ' ' ||emp.nom AS "Nom de lemployé", 
@@ -365,3 +371,9 @@ CREATE VIEW employe_calibration AS
 		FROM calibration AS cal 
 		FULL JOIN employe as emp ON emp.id = cal.employe 
 		GROUP BY emp.prenom, emp.nom;
+
+-- Abigail 
+CREATE VIEW nombre_conducteur_inspection AS
+	 SELECT con.conducteur, COUNT(*)
+		 FROM inspection as con
+		 GROUP BY con.conducteur
