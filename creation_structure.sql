@@ -1,3 +1,8 @@
+--Suppression des vues
+DROP VIEW IF EXISTS employe_calibration;
+DROP VIEW IF EXISTS nombre_conducteur_inspection;
+DROP VIEW IF EXISTS employe_departement_poste;
+
 ALTER TABLE IF EXISTS employe DROP CONSTRAINT IF EXISTS fk_employe_poste;
 ALTER TABLE IF EXISTS employe DROP CONSTRAINT IF EXISTS fk_employe_departement;
 ALTER TABLE IF EXISTS calibration DROP CONSTRAINT IF EXISTS fk_calibration_profileur;
@@ -44,11 +49,6 @@ DROP SEQUENCE IF EXISTS identifiant_intersection;
 DROP SEQUENCE IF EXISTS numero_immatriculation;
 DROP SEQUENCE IF EXISTS numero_serie;
 DROP SEQUENCE IF EXISTS numero_nom_fichier;
-
---Suppression des vues
-DROP VIEW IF EXISTS employe_calibration;
-DROP VIEW IF EXISTS nombre_conducteur_inspection;
-DROP VIEW IF EXISTS employe_departement_poste;
 
 --Suppression des index
 DROP INDEX IF EXISTS chercher_lumiere_forme;
@@ -219,6 +219,7 @@ CREATE TABLE type_panneau(
 	, type			VARCHAR(64)		NOT NULL
 	
 	, CONSTRAINT 	pk_type_pan		PRIMARY KEY(id)
+	, CONSTRAINT	uc_type			UNIQUE(type)
 );
 
 -- Ahmed
