@@ -48,10 +48,12 @@ DROP SEQUENCE IF EXISTS numero_nom_fichier;
 --Suppression des vues
 DROP VIEW IF EXISTS employe_calibration;
 DROP VIEW IF EXISTS nombre_conducteur_inspection;
+DROP VIEW IF EXISTS employe_departement_poste;
 
 --Suppression des index
 DROP INDEX IF EXISTS chercher_lumiere_forme;
 DROP INDEX IF EXISTS chercher_conducteur;
+DROP INDEX IF EXISTS chercher_inspection_troncon;
 
 -- Thomas
 CREATE TYPE genre AS ENUM('f', 'h', 'x');
@@ -363,6 +365,10 @@ CREATE INDEX chercher_lumiere_forme
 -- Abigail
 CREATE INDEX chercher_conducteur
 	ON inspection(conducteur);
+	
+-- Ahmed
+CREATE INDEX chercher_inspection_troncon
+	ON troncon_inspection(inspection);
 
 -- Thomas
 CREATE VIEW employe_calibration AS
@@ -376,4 +382,20 @@ CREATE VIEW employe_calibration AS
 CREATE VIEW nombre_conducteur_inspection AS
 	 SELECT con.conducteur, COUNT(*)
 		 FROM inspection as con
-		 GROUP BY con.conducteur
+		 GROUP BY con.conducteur;
+		 
+		 
+-- Ahmed 
+CREATE VIEW employe_departement_poste AS ----
+	SELECT   emp.nom AS "nom_employe"
+		   , emp.prenom AS "prenom_employe"
+		   , poste.nom AS "poste_employe"
+		   , dep.nom AS "departement_employe"
+		   , date_embauche AS "date_embauche_employe"
+		   , salaire AS "salaire_employe"
+	FROM employe AS "emp"
+	INNER JOIN departement AS "dep"
+		ON emp.departement = dep.id
+	INNER JOIN poste
+		ON emp.poste = poste.id;
+
