@@ -386,7 +386,7 @@ CREATE VIEW nombre_conducteur_inspection AS
 		 
 		 
 -- Ahmed 
-CREATE VIEW employe_departement_poste AS ----
+CREATE VIEW employe_departement_poste AS
 	SELECT   emp.nom AS "nom_employe"
 		   , emp.prenom AS "prenom_employe"
 		   , poste.nom AS "poste_employe"
