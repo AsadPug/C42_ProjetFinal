@@ -12,6 +12,7 @@ DROP FUNCTION IF EXISTS id_random(text);
 DROP FUNCTION IF EXISTS random_timestamp();
 DROP FUNCTION IF EXISTS random_end_timestamp(TIMESTAMP);
 DROP PROCEDURE IF EXISTS insertion_panneaux_et_dispos(integer);
+DROP FUNCTION IF EXISTS heures_totales();
 
 -- Ahmed
 CREATE OR REPLACE FUNCTION new_dispositif_random() RETURNS TRIGGER AS $$
