@@ -119,7 +119,6 @@ SELECT n_veh_ins.nom as "nom du conducteur",
 -- Réalisé par : Kerian Devillers
 -- Aidé par : ...
 -- =======================================================
-
 SELECT emp.prenom || ' ' || emp.nom AS "Nom", COUNT(*) AS "Nombre de fois conducteur"
 	FROM inspection AS ins
 		INNER JOIN employe AS emp
@@ -135,7 +134,6 @@ SELECT emp.prenom || ' ' || emp.nom AS "Nom", COUNT(*) AS "Nombre de fois conduc
 -- Réalisé par : Kerian Devillers
 -- Aidé par : ...
 -- =======================================================
-
 SELECT pl.id 
 	FROM profileur_laser AS pl
 		INNER JOIN calibration AS cal
@@ -153,6 +151,14 @@ SELECT pl.id
 -- Réalisé par : Kerian Devillers
 -- Aidé par : ...
 -- =======================================================
+SELECT emp.prenom || ' ' || emp.nom AS "Nom employé"
+	FROM employe AS emp
+		INNER JOIN inspection AS ins
+			ON emp.id = ins.conducteur
+	WHERE emp.id = (SELECT inspection.inspecteur FROM inspection WHERE inspection.inspecteur = emp.id LIMIT 1)
+	GROUP BY emp.nom, emp.prenom
+	HAVING COUNT(*) > 25
+	LIMIT 1;
 -- =======================================================
 
 -- =======================================================
