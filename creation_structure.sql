@@ -3,7 +3,6 @@ DROP VIEW IF EXISTS employe_calibration;
 DROP VIEW IF EXISTS nombre_conducteur_inspection;
 DROP VIEW IF EXISTS employe_departement_poste;
 DROP VIEW IF EXISTS calibration_plus_recente;
-DROP VIEW IF EXISTS nombre_employes_calibrations;
 
 ALTER TABLE IF EXISTS employe DROP CONSTRAINT IF EXISTS fk_employe_poste;
 ALTER TABLE IF EXISTS employe DROP CONSTRAINT IF EXISTS fk_employe_departement;
