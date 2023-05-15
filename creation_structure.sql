@@ -219,7 +219,7 @@ CREATE TABLE type_panneau(
 	, type			VARCHAR(64)		NOT NULL
 	
 	, CONSTRAINT 	pk_type_pan		PRIMARY KEY(id)
-	, CONSTRAINT	uc_type			UNIQUE(type)
+	, CONSTRAINT	uc_type_pan		UNIQUE(type)
 );
 
 -- Ahmed
@@ -239,6 +239,7 @@ CREATE TABLE type_dispositif_particulier(
 	, type			VARCHAR(64)		NOT NULL
 	
 	, CONSTRAINT 	pk_type_dis_par		PRIMARY KEY(id)
+	, CONSTRAINT	uc_type_dis_par		UNIQUE(type)
 );
 
 -- Ahmed
@@ -266,11 +267,11 @@ CREATE TABLE lumiere(
 -- Ahmed
 CREATE TABLE dispositif_lumineux(
 	  id			SERIAL
-	, troncon		INTEGER				NOT NULL
+	, troncon		INTEGER			NOT NULL
 	, position		DECIMAL(5,2)		NOT NULL
-	, orientation	TYPE_ORIENTAION		NOT NULL
+	, orientation		TYPE_ORIENTAION		NOT NULL
 	
-	, CONSTRAINT 	pk_dis_lum			PRIMARY KEY(id)
+	, CONSTRAINT 	pk_dis_lum		PRIMARY KEY(id)
 	, CONSTRAINT	cc_dl_pourcentage 	CHECK(position <= 100.00)
 );
 
@@ -281,8 +282,10 @@ CREATE TABLE couleur(
 	, hex			VARCHAR(6)		NOT NULL
 	, nom			VARCHAR(64)		NOT NULL
 	
-	, CONSTRAINT 	pk_coul			PRIMARY KEY(id),
-	CONSTRAINT cc_couleur_hex CHECK(hex ~* '^[a-f0-9]{2}[a-f0-9]{2}[a-f0-9]{2}$')
+	, CONSTRAINT 	pk_coul			PRIMARY KEY(id)
+	, CONSTRAINT 	cc_couleur_hex 		CHECK(hex ~* '^[a-f0-9]{2}[a-f0-9]{2}[a-f0-9]{2}$')
+	, CONSTRAINT	uc_hex			UNIQUE(hex)
+	, CONSTRAINT	uc_nom			UNIQUE(nom)
 );
 
 -- Ahmed
@@ -290,7 +293,9 @@ CREATE TABLE forme(
 	  id			SERIAL
 	, forme			VARCHAR(64)		NOT NULL
 	
-	, CONSTRAINT 	pk_forme		PRIMARY KEY(id)
+	, CONSTRAINT 	pk_forme	PRIMARY KEY(id)
+	, CONSTRAINT	uc_forme	UNIQUE(forme)
+	
 );
 
 
