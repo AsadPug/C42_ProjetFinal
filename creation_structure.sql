@@ -3,6 +3,7 @@ DROP VIEW IF EXISTS employe_calibration;
 DROP VIEW IF EXISTS nombre_conducteur_inspection;
 DROP VIEW IF EXISTS employe_departement_poste;
 DROP VIEW IF EXISTS calibration_plus_recente;
+DROP VIEW IF EXISTS nombre_employes_calibrations;
 
 ALTER TABLE IF EXISTS employe DROP CONSTRAINT IF EXISTS fk_employe_poste;
 ALTER TABLE IF EXISTS employe DROP CONSTRAINT IF EXISTS fk_employe_departement;
@@ -55,7 +56,7 @@ DROP SEQUENCE IF EXISTS numero_nom_fichier;
 DROP INDEX IF EXISTS chercher_lumiere_forme;
 DROP INDEX IF EXISTS chercher_conducteur;
 DROP INDEX IF EXISTS chercher_inspection_troncon;
-DROP INDEX IF EXISTS id_employer;
+DROP INDEX IF EXISTS id_employe;
 
 -- Thomas
 CREATE TYPE genre AS ENUM('f', 'h', 'x');
@@ -415,4 +416,4 @@ CREATE OR REPLACE VIEW calibration_plus_recente AS
 	SELECT id
 		FROM calibration
 		ORDER BY date_fin DESC
-		LIMIT  1
+		LIMIT  1;
