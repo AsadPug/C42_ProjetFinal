@@ -148,6 +148,14 @@ SELECT pl.id
 -- =======================================================
 
 -- =======================================================
+-- Requête: Série #3
+-- Objectif : Donner le nom de l'employé qui as inspecté le plus de troncons ou il y avait un panneau de stop
+-- Réalisé par : Kerian Devillers
+-- Aidé par : ...
+-- =======================================================
+-- =======================================================
+
+-- =======================================================
 -- Requête: Série 1, #1
 -- Objectif : Donner la liste des employés : nom, prénom, poste, nom du département,
 -- ancienneté (en année et mois), leur salaire annuel (considérant qu’ils travaillent 
