@@ -147,17 +147,19 @@ SELECT pl.id
 
 -- =======================================================
 -- Requête: Série #3
--- Objectif : Donner le nom de l'employé qui as inspecté le plus de troncons ou il y avait un panneau de stop
+-- Objectif : Donner le nom et salaire de l'employé qui as les salaire le plus bas 
+-- tout en ayant fait au moins une inspection en tant qu'inspecteur et au moins 25 en tant que conducteur 
 -- Réalisé par : Kerian Devillers
 -- Aidé par : ...
 -- =======================================================
-SELECT emp.prenom || ' ' || emp.nom AS "Nom employé"
+SELECT emp.prenom || ' ' || emp.nom AS "Nom employé", emp.salaire
 	FROM employe AS emp
 		INNER JOIN inspection AS ins
 			ON emp.id = ins.conducteur
 	WHERE emp.id = (SELECT inspection.inspecteur FROM inspection WHERE inspection.inspecteur = emp.id LIMIT 1)
-	GROUP BY emp.nom, emp.prenom
+	GROUP BY emp.nom, emp.prenom, emp.salaire
 	HAVING COUNT(*) > 25
+	ORDER BY emp.salaire
 	LIMIT 1;
 -- =======================================================
 
