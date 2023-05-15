@@ -190,3 +190,35 @@ INNER JOIN employe AS conducteur
 INNER JOIN employe AS inspecteur
 	ON ins.inspecteur = inspecteur.id;
 -- =======================================================
+
+-- =======================================================
+-- Requête: Série 3
+-- Objectif : Donner le nom des 3 premières tronçons ayant un nombre 
+-- d'inspections qui est juste en dessous du moyen d'inspections par tronçon.
+-- Donner également le nombre d'inspections pour chaqu'un de ses tronçon.
+-- Fournissez également le
+-- Évaluation : ...
+-- Réalisé par : Ahmed Sadek
+-- Aidé par : ...
+-- =======================================================
+SELECT    tro_ins.troncon AS "Id du troncon"
+		, tro.nom AS "Nom de la rue"
+		, COUNT(*) AS "Nombre intersections par troncon"
+FROM troncon_inspection AS "tro_ins"
+INNER JOIN inspection AS "ins"
+	ON tro_ins.inspection = ins.id
+INNER JOIN troncon AS "tro"
+	ON tro_ins.troncon = tro.id
+GROUP BY tro_ins.troncon, tro.nom
+	HAVING COUNT(*) < (SELECT AVG("nbr inspections par troncon") 
+							FROM (SELECT COUNT(*) AS "nbr inspections par troncon"
+									FROM troncon_inspection AS "tro_ins"
+									INNER JOIN inspection AS "ins"
+										ON tro_ins.inspection = ins.id
+									INNER JOIN troncon AS "tro"
+										ON tro_ins.troncon = tro.id
+									GROUP BY tro_ins.troncon
+									ORDER BY tro_ins.troncon ASC) AS moyen)
+ORDER BY tro_ins.troncon DESC
+LIMIT 3;
+-- =======================================================
