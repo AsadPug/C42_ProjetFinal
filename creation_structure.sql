@@ -2,6 +2,7 @@
 DROP VIEW IF EXISTS employe_calibration;
 DROP VIEW IF EXISTS nombre_conducteur_inspection;
 DROP VIEW IF EXISTS employe_departement_poste;
+DROP VIEW IF EXISTS calibration_plus_recente;
 
 ALTER TABLE IF EXISTS employe DROP CONSTRAINT IF EXISTS fk_employe_poste;
 ALTER TABLE IF EXISTS employe DROP CONSTRAINT IF EXISTS fk_employe_departement;
@@ -54,6 +55,7 @@ DROP SEQUENCE IF EXISTS numero_nom_fichier;
 DROP INDEX IF EXISTS chercher_lumiere_forme;
 DROP INDEX IF EXISTS chercher_conducteur;
 DROP INDEX IF EXISTS chercher_inspection_troncon;
+DROP INDEX IF EXISTS id_employer;
 
 -- Thomas
 CREATE TYPE genre AS ENUM('f', 'h', 'x');
@@ -376,6 +378,10 @@ CREATE INDEX chercher_conducteur
 CREATE INDEX chercher_inspection_troncon
 	ON troncon_inspection(inspection);
 
+-- Kerian
+CREATE INDEX id_employer
+	ON employe(id);
+
 -- Thomas
 CREATE VIEW employe_calibration AS
 		SELECT emp.prenom || ' ' ||emp.nom AS "Nom de lemployé", 
@@ -389,8 +395,7 @@ CREATE VIEW nombre_conducteur_inspection AS
 	 SELECT con.conducteur, COUNT(*)
 		 FROM inspection as con
 		 GROUP BY con.conducteur;
-		 
-		 
+		  
 -- Ahmed 
 CREATE VIEW employe_departement_poste AS
 	SELECT   emp.nom AS "nom_employe"
@@ -405,3 +410,9 @@ CREATE VIEW employe_departement_poste AS
 	INNER JOIN poste
 		ON emp.poste = poste.id;
 
+-- Kerian 
+CREATE OR REPLACE VIEW calibration_plus_recente AS
+	SELECT id
+		FROM calibration
+		ORDER BY date_fin DESC
+		LIMIT  1
