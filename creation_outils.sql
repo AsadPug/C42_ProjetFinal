@@ -23,7 +23,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER dispositif_random
+CREATE OR REPLACE TRIGGER dispositif_random
 BEFORE INSERT ON panneau
 FOR EACH ROW
 EXECUTE FUNCTION new_dispositif_random();
@@ -46,6 +46,7 @@ LANGUAGE SQL
 AS $$
 	SELECT id FROM employe order by random() limit 1;
 $$;
+
 --Abigail 
 CREATE OR REPLACE FUNCTION autre_employe_random(employe integer) RETURNS INT
 LANGUAGE SQL
@@ -97,7 +98,7 @@ RETURNS TRIGGER AS $$
 $$
 LANGUAGE PLPGSQL;
 
-CREATE TRIGGER update_kilo_fin AFTER INSERT OR UPDATE
+CREATE OR REPLACE TRIGGER update_kilo_fin AFTER INSERT OR UPDATE
 	ON troncon_inspection
 	FOR EACH ROW EXECUTE FUNCTION update_kilo_fin();
 
@@ -121,7 +122,7 @@ BEGIN
 END;
 $$;
 	
-CREATE TRIGGER new_lumieres
+CREATE OR REPLACE TRIGGER new_lumieres
 AFTER INSERT ON dispositif_lumineux
 FOR EACH ROW
 EXECUTE PROCEDURE random_lumiere();
@@ -259,7 +260,7 @@ RETURNS TRIGGER LANGUAGE PLPGSQL AS $$
 $$;
 
 
-CREATE TRIGGER update_troncon_inspection 
+CREATE OR REPLACE TRIGGER update_troncon_inspection 
 	AFTER INSERT ON inspection
 	FOR EACH ROW EXECUTE FUNCTION update_troncon_inspection();
 
